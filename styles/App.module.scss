@@ -2,4 +2,12 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+
+  .headerWrapper {
+    height: 50px;
+  }
+
+  .colorsWrapper {
+    flex: 1;
+  }
 }
