@@ -7,11 +7,18 @@ export function AppProvider ({ children }) {
     colors: []
   })
 
-  const _setState = newState => {
-    setState(state => ({
-      ...state,
-      ...newState
-    }))
+  const _setState = updater => {
+    if (typeof updater === 'function') {
+      setState(prevState => ({
+        ...prevState,
+        ...updater(prevState)
+      }))
+    } else {
+      setState(prevState => ({
+        ...prevState,
+        ...updater
+      }))
+    }
   }
 
   const value = {
