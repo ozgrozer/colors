@@ -36,7 +36,7 @@ export default () => {
 
             {
               key !== colors.length - 1 && (
-                <button className={styles.addColorButton}>
+                <button className={styles.newColorButton}>
                   +
                 </button>
               )
