@@ -1,9 +1,16 @@
+import { useState, useEffect } from 'react'
+import niceColors from 'nice-color-palettes'
+
 import ntc from '@functions/ntc'
 import styles from '@styles/Colors.module.scss'
 import adjustTextColor from '@functions/adjustTextColor'
 
 export default () => {
-  const colors = ['#a1e8af', '#94c595', '#747c92', '#372772', '#3a2449']
+  const [colors, setColors] = useState([])
+
+  useEffect(() => {
+    setColors(niceColors[Math.floor(Math.random() * niceColors.length)])
+  }, [])
 
   return (
     <div className={styles.colors}>
