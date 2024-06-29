@@ -4,11 +4,11 @@ import niceColors from 'nice-color-palettes'
 import ntc from '@functions/ntc'
 import styles from '@styles/Colors.module.scss'
 import NewColorButtons from './NewColorButtons'
-import { AppContext } from '@contexts/AppContext'
+import { useAppContext } from '@contexts/AppContext'
 import adjustTextColor from '@functions/adjustTextColor'
 
 export default () => {
-  const { state, setState } = AppContext()
+  const { state, setState } = useAppContext()
   const { colors } = state
 
   useEffect(() => {

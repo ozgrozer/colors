@@ -1,10 +1,15 @@
 import clx from '@functions/clx'
 import styles from '@styles/Colors.module.scss'
-import { AppContext } from '@contexts/AppContext'
+import { useAppContext } from '@contexts/AppContext'
 
 const NewColorButton = ({ index }) => {
+  const { state, setState } = useAppContext()
+  const { colors } = state
+
   const buttonOnClick = () => {
-    console.log({ index })
+    const newColors = [...colors]
+    newColors.splice(index, 0, 'red')
+    setState({ colors: newColors })
   }
 
   return (
@@ -18,7 +23,7 @@ const NewColorButton = ({ index }) => {
 }
 
 export default ({ index }) => {
-  const { state } = AppContext()
+  const { state } = useAppContext()
   const { colors } = state
 
   return (
