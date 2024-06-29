@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-import Colors from '@components/Colors'
+import App from '@components/App'
 
 export default () => {
   return (
@@ -9,7 +9,7 @@ export default () => {
         <title>Colors</title>
       </Head>
 
-      <Colors />
+      <App />
     </>
   )
 }
