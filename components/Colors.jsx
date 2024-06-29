@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import { ChromePicker } from 'react-color'
+import { useState, useEffect } from 'react'
 import niceColors from 'nice-color-palettes'
 
 import ntc from '@functions/ntc'
@@ -16,6 +17,25 @@ export default () => {
     setState({ colors })
   }, [])
 
+  const [displayColorPicker, setDisplayColorPicker] = useState({})
+  const handleClick = ({ index }) => {
+    setDisplayColorPicker(prevState => ({
+      ...prevState,
+      [index]: !prevState[index]
+    }))
+  }
+
+  const handleChange = ({ color, index }) => {
+    setState(prevState => {
+      const newColors = [...prevState.colors]
+      newColors[index] = color.hex
+      return {
+        ...prevState,
+        colors: newColors
+      }
+    })
+  }
+
   return (
     <div className={styles.colors}>
       {colors.map((color, key) => {
@@ -30,9 +50,21 @@ export default () => {
           >
             <button
               className={styles.colorCode}
+              onClick={() => handleClick({ index: key })}
             >
               {color.substr(1).toUpperCase()}
             </button>
+
+            {
+              displayColorPicker[key] && (
+                <div style={{ left: 0, top: 200, position: 'absolute', zIndex: '3' }}>
+                  <ChromePicker
+                    color={color}
+                    onChange={color => handleChange({ color, index: key })}
+                  />
+                </div>
+              )
+            }
 
             <div>
               {colorName}
