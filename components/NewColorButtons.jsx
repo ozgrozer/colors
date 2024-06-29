@@ -3,13 +3,17 @@ import styles from '@styles/Colors.module.scss'
 import { useAppContext } from '@contexts/AppContext'
 
 const NewColorButton = ({ index }) => {
-  const { state, setState } = useAppContext()
-  const { colors } = state
+  const { setState } = useAppContext()
 
   const buttonOnClick = () => {
-    const newColors = [...colors]
-    newColors.splice(index, 0, 'red')
-    setState({ colors: newColors })
+    setState(prevState => {
+      const newColors = [...prevState.colors]
+      newColors.splice(index, 0, '#1BB0CE')
+      return {
+        ...prevState,
+        colors: newColors
+      }
+    })
   }
 
   return (
