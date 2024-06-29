@@ -1,3 +1,8 @@
 body {
   margin: 0;
 }
+
+body, input, textarea, button, select {
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+}
