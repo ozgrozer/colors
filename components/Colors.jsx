@@ -1,3 +1,4 @@
+import ntc from '@functions/ntc'
 import styles from '@styles/Colors.module.scss'
 
 export default () => {
@@ -6,13 +7,23 @@ export default () => {
   return (
     <div className={styles.colors}>
       {colors.map((color, key) => {
+        const colorName = ntc.name(color)[1]
+
         return (
           <div
             key={key}
-            className={styles.color}
+            className={styles.colorWrapper}
             style={{ backgroundColor: color }}
           >
-            {color}
+            <button
+              className={styles.colorCode}
+            >
+              {color.substr(1).toUpperCase()}
+            </button>
+
+            <div>
+              {colorName}
+            </div>
           </div>
         )
       })}
