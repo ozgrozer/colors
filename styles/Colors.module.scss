@@ -34,6 +34,13 @@
       align-items: center;
       margin-right: -50px;
       justify-content: center;
+      &.firstButton {
+        left: 0;
+        margin-left: 0;
+      }
+      &.lastButton {
+        margin-right: 0;
+      }
       &:hover {
         .newColorButton {
           opacity: 1;
@@ -53,6 +60,9 @@
         transition: all 250ms;
         background-color: #fff;
         justify-content: center;
+        &:hover {
+          background-color: darken(#fff, 10%);
+        }
       }
     }
   }
