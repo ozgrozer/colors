@@ -1,16 +1,19 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import niceColors from 'nice-color-palettes'
 
 import ntc from '@functions/ntc'
 import styles from '@styles/Colors.module.scss'
 import NewColorButtons from './NewColorButtons'
+import { AppContext } from '@contexts/AppContext'
 import adjustTextColor from '@functions/adjustTextColor'
 
 export default () => {
-  const [colors, setColors] = useState([])
+  const { state, setState } = AppContext()
+  const { colors } = state
 
   useEffect(() => {
-    setColors(niceColors[Math.floor(Math.random() * niceColors.length)])
+    const colors = niceColors[Math.floor(Math.random() * niceColors.length)]
+    setState({ colors })
   }, [])
 
   return (
@@ -35,7 +38,7 @@ export default () => {
               {colorName}
             </div>
 
-            <NewColorButtons index={key} colors={colors} />
+            <NewColorButtons index={key} />
           </div>
         )
       })}
