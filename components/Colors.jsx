@@ -1,8 +1,8 @@
-import { ChromePicker } from 'react-color'
+import { useState, useEffect } from 'react'
 import niceColors from 'nice-color-palettes'
-import { useRef, useState, useEffect } from 'react'
 
 import ntc from '@functions/ntc'
+import ColorPicker from './ColorPicker'
 import styles from '@styles/Colors.module.scss'
 import NewColorButtons from './NewColorButtons'
 import { useAppContext } from '@contexts/AppContext'
@@ -24,30 +24,6 @@ export default () => {
       [index]: !prevState[index]
     }))
   }
-  const pickerRef = useRef(null)
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (pickerRef.current && !pickerRef.current.contains(event.target)) {
-        setDisplayColorPicker({})
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [])
-
-  const handleChange = ({ color, index }) => {
-    setState(prevState => {
-      const newColors = [...prevState.colors]
-      newColors[index] = color.hex
-      return {
-        ...prevState,
-        colors: newColors
-      }
-    })
-  }
 
   return (
     <div className={styles.colors}>
@@ -68,25 +44,18 @@ export default () => {
               {color.substr(1).toUpperCase()}
             </button>
 
-            {
-              displayColorPicker[key] && (
-                <div
-                  ref={pickerRef}
-                  style={{ left: 50, top: 200, position: 'absolute', zIndex: '2' }}
-                >
-                  <ChromePicker
-                    color={color}
-                    onChange={color => handleChange({ color, index: key })}
-                  />
-                </div>
-              )
-            }
-
             <div>
               {colorName}
             </div>
 
             <NewColorButtons index={key} />
+
+            <ColorPicker
+              index={key}
+              color={color}
+              displayColorPicker={displayColorPicker}
+              setDisplayColorPicker={setDisplayColorPicker}
+            />
           </div>
         )
       })}
