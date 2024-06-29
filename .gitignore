@@ -1,0 +1,8 @@
+# directories
+.next
+node_modules
+
+# files
+.DS_Store
+yarn-error.log
+*.code-workspace
