@@ -1,5 +1,5 @@
 import Colors from './Colors'
-import styles from '@styles/Colors.module.scss'
+import styles from '@styles/App.module.scss'
 
 export default () => {
   return (
