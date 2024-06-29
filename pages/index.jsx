@@ -1,5 +1,7 @@
 import Head from 'next/head'
 
+import Colors from '@components/Colors'
+
 export default () => {
   return (
     <>
@@ -7,7 +9,7 @@ export default () => {
         <title>Colors</title>
       </Head>
 
-      <div>Hello World!</div>
+      <Colors />
     </>
   )
 }

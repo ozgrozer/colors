@@ -1,0 +1,10 @@
+.colors {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+
+  .color {
+    flex: 1;
+    height: 100%;
+  }
+}
