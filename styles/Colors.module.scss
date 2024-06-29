@@ -30,25 +30,27 @@
       width: 100px;
       height: 100%;
       display: flex;
-      font-size: 24px;
       position: absolute;
       align-items: center;
       margin-right: -50px;
       justify-content: center;
       &:hover {
         .newColorButton {
-          display: flex;
+          opacity: 1;
         }
       }
 
       .newColorButton {
         padding: 0;
+        opacity: 0;
         width: 50px;
         height: 50px;
         border: none;
-        display: none;
+        display: flex;
+        font-size: 24px;
         border-radius: 50%;
         align-items: center;
+        transition: all 250ms;
         background-color: #fff;
         justify-content: center;
       }
