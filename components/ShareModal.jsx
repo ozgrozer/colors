@@ -24,7 +24,7 @@ export default ({ modalIsOpen, closeModal }) => {
     .map(color => color.substr(1))
     .join('-')
 
-  const fullUrl = `${baseUrl}${colorsForUrl}`
+  const fullUrl = `${baseUrl}?colors=${colorsForUrl}`
 
   return (
     <Modal
