@@ -5,72 +5,19 @@ import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import clx from '@functions/clx'
 import { useAppContext } from '@contexts/AppContext'
 import styles from '@styles/ExportModalTabs.module.scss'
-
-const Css = () => {
-  const { state } = useAppContext()
-  const { colors } = state
-  console.log(colors)
-
-  const code = 'body { color: blue; }'
-
-  return (
-    <SyntaxHighlighter
-      language='css'
-      style={oneDark}
-      className={styles.syntaxHighlighter}
-    >
-      {code}
-    </SyntaxHighlighter>
-  )
-}
-
-const Scss = () => {
-  const code = 'body { color: $blue; }'
-
-  return (
-    <SyntaxHighlighter
-      language='scss'
-      style={oneDark}
-      className={styles.syntaxHighlighter}
-    >
-      {code}
-    </SyntaxHighlighter>
-  )
-}
-
-const Js = () => {
-  const code = 'console.log("test")'
-
-  return (
-    <SyntaxHighlighter
-      language='js'
-      style={oneDark}
-      className={styles.syntaxHighlighter}
-    >
-      {code}
-    </SyntaxHighlighter>
-  )
-}
+import generateColorVariables from '@functions/generateColorVariables'
 
 export default () => {
+  const { state } = useAppContext()
+  const { colors } = state
+
   const tabs = [
-    {
-      id: 'css',
-      title: 'CSS',
-      Component: Css
-    },
-    {
-      id: 'scss',
-      title: 'SCSS',
-      Component: Scss
-    },
-    {
-      id: 'js',
-      title: 'JS',
-      Component: Js
-    }
+    { id: 'css', title: 'CSS' },
+    { id: 'scss', title: 'SCSS' },
+    { id: 'js', title: 'JS' }
   ]
   const [activeButtonKey, setActiveButtonKey] = useState(0)
+  const colorVariables = generateColorVariables(colors)
 
   return (
     <div className={styles.tabs}>
@@ -99,7 +46,13 @@ export default () => {
               key={key}
               className={styles.content}
             >
-              <tab.Component />
+              <SyntaxHighlighter
+                style={oneDark}
+                language={tab.id}
+                className={styles.syntaxHighlighter}
+              >
+                {colorVariables[tab.id]}
+              </SyntaxHighlighter>
             </div>
           )
         })
