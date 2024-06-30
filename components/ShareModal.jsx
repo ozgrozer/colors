@@ -1,4 +1,5 @@
 import Modal from 'react-modal'
+import getConfig from 'next/config'
 import { MdClose } from 'react-icons/md'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
@@ -13,11 +14,17 @@ export default ({ modalIsOpen, closeModal }) => {
   const { state } = useAppContext()
   const { colors } = state
 
+  const { publicRuntimeConfig } = getConfig()
+  const baseUrl =
+    process.env.NODE_ENV === 'production'
+      ? publicRuntimeConfig.productionBaseUrl
+      : publicRuntimeConfig.developmentBaseUrl
+
   const colorsForUrl = colors
     .map(color => color.substr(1))
     .join('-')
 
-  const fullUrl = `https://ozgrozer.github.io/colors/${colorsForUrl}`
+  const fullUrl = `${baseUrl}${colorsForUrl}`
 
   return (
     <Modal
