@@ -3,6 +3,7 @@ import Modal from 'react-modal'
 import { useState } from 'react'
 import { useFormik } from 'formik'
 import { MdClose } from 'react-icons/md'
+import { getCookie, setCookie } from 'cookies-next'
 
 import clx from '@functions/clx'
 import { FormikInput } from './Formik'
@@ -12,28 +13,33 @@ import { useAppContext } from '@contexts/AppContext'
 Modal.setAppElement('#reactModal')
 
 export default ({ modalIsOpen, closeModal }) => {
-  const { setState } = useAppContext()
+  const { state } = useAppContext()
+  const { colors } = state
 
   const [formIsSubmitting, setFormIsSubmitting] = useState(false)
   const formik = useFormik({
     initialValues: {
-      colors: ''
+      paletteName: ''
     },
     enableReinitialize: true,
     validationSchema: Yup.object({
-      colors: Yup.string().min(6).required()
+      paletteName: Yup.string().min(1).required()
     }),
     onSubmit: async values => {
       setFormIsSubmitting(true)
 
-      const newColors = values.colors
-        .split('\n')
-        .map(color => color.substr(0, 1) !== '#' ? `#${color}` : color)
-      setState({ colors: newColors })
-
-      setFormIsSubmitting(false)
+      const palettes = getCookie('palettes')
+        ? JSON.parse(getCookie('palettes'))
+        : []
+      palettes.push({
+        colors,
+        name: values.paletteName
+      })
+      setCookie('palettes', palettes)
 
       closeModal()
+      formik.resetForm()
+      setFormIsSubmitting(false)
     }
   })
 
@@ -75,16 +81,18 @@ export default ({ modalIsOpen, closeModal }) => {
               invalidClassName={modalStyles.invalid}
             />
 
-            <div className={modalStyles.alert}>
-              Saved palettes are stored in cookies
-            </div>
-
             <button
               type='submit'
               className={clx(modalStyles.button, modalStyles.blue)}
             >
               Save
             </button>
+
+            <div className={clx(modalStyles.alert, modalStyles.info)}>
+              <div className={modalStyles.colorText}>
+                Saved palettes are stored in cookies
+              </div>
+            </div>
           </fieldset>
         </form>
       </div>
