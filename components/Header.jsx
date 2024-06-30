@@ -64,13 +64,15 @@ export default () => {
         </Link>
 
         {
-          selectedPalette && (
-            <div className={styles.palette}>
-              <div>/</div>
+          Object.keys(selectedPalette).length
+            ? (
+              <div className={styles.palette}>
+                <div>/</div>
 
-              <div>{selectedPalette.name}</div>
-            </div>
-          )
+                <div>{selectedPalette.name}</div>
+              </div>
+              )
+            : null
         }
       </div>
 
