@@ -11,6 +11,7 @@ const MyDocument = () => {
       <body>
         <Main />
         <NextScript />
+        <div id='reactModal' />
       </body>
     </Html>
   )

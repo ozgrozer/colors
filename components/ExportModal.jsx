@@ -4,6 +4,8 @@ import clx from '@functions/clx'
 import ExportModalTabs from './ExportModalTabs'
 import styles from '@styles/ExportModal.module.scss'
 
+Modal.setAppElement('#reactModal')
+
 export default ({ modalIsOpen, closeModal }) => {
   return (
     <Modal
