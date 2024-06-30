@@ -1,8 +1,8 @@
 export default str => {
   return str
-    .toLowerCase()
-    .replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) =>
-      index === 0 ? letter.toLowerCase() : letter.toUpperCase()
+    .split(/[-\s]+/)
+    .map((word, index) =>
+      index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
     )
-    .replace(/\s+/g, '')
+    .join('')
 }
