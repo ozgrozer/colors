@@ -1,6 +1,6 @@
 .alert {
   gap: 16px;
-  height: 60px;
+  height: 50px;
   display: flex;
   padding: 0 16px;
   border-width: 1px;
@@ -14,8 +14,8 @@
     justify-content: center;
   }
   &.info {
-    border-color: #ACB5BD;
-    background-color: #CED4DA;
+    border-color: #ddd;
+    background-color: #e9ecef;
 
     .colorText {
       color: #495057;
