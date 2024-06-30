@@ -1,12 +1,16 @@
 import Link from 'next/link'
 import { useState } from 'react'
-import { PiXLogo, PiShare, PiGithubLogo, PiExportBold } from 'react-icons/pi'
+import niceColors from 'nice-color-palettes'
+import { PiXLogo, PiShare, PiShuffle, PiGithubLogo, PiExportBold } from 'react-icons/pi'
 
 import ShareModal from './ShareModal'
 import ExportModal from './ExportModal'
 import styles from '@styles/Header.module.scss'
+import { useAppContext } from '@contexts/AppContext'
 
 export default () => {
+  const { setState } = useAppContext()
+
   const [exportModalIsOpen, setExportModalIsOpen] = useState(false)
   const openExportModal = () => setExportModalIsOpen(true)
   const closeExportModal = () => setExportModalIsOpen(false)
@@ -14,6 +18,11 @@ export default () => {
   const [shareModalIsOpen, setShareModalIsOpen] = useState(false)
   const openShareModal = () => setShareModalIsOpen(true)
   const closeShareModal = () => setShareModalIsOpen(false)
+
+  const shuffleColors = () => {
+    const colors = niceColors[Math.floor(Math.random() * niceColors.length)]
+    setState({ colors })
+  }
 
   return (
     <div className={styles.header}>
@@ -25,6 +34,14 @@ export default () => {
       </Link>
 
       <div className={styles.buttons}>
+        <button
+          onClick={shuffleColors}
+          className={styles.button}
+        >
+          <PiShuffle />
+          <span>Shuffle</span>
+        </button>
+
         <button
           className={styles.button}
           onClick={openExportModal}
