@@ -7,16 +7,18 @@ import App from '@components/App'
 export default () => {
   const router = useRouter()
   const { colorCodes } = router.query
-  const [colors, setColors] = useState([])
+  const [urlColors, setUrlColors] = useState([])
 
   useEffect(() => {
     if (colorCodes) {
       const colorString = Array.isArray(colorCodes)
         ? colorCodes.join('-')
         : colorCodes
-      setColors(colorString.split('-'))
+      setUrlColors(colorString.split('-'))
     }
   }, [colorCodes])
+
+  if (!urlColors.length) return null
 
   return (
     <>
@@ -24,7 +26,7 @@ export default () => {
         <title>Colors</title>
       </Head>
 
-      <App colors={colors} />
+      <App urlColors={urlColors} />
     </>
   )
 }

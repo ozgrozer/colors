@@ -7,7 +7,7 @@ import styles from '@styles/App.module.scss'
 import findInObject from '@functions/findInObject'
 import { useAppContext, AppProvider } from '@contexts/AppContext'
 
-const App = ({ colors }) => {
+const App = ({ urlColors }) => {
   const { setState } = useAppContext()
 
   useState(() => {
@@ -40,16 +40,16 @@ const App = ({ colors }) => {
       </div>
 
       <div className={styles.colorsWrapper}>
-        <Colors colors={colors} />
+        <Colors urlColors={urlColors} />
       </div>
     </div>
   )
 }
 
-export default ({ colors }) => {
+export default ({ urlColors }) => {
   return (
     <AppProvider>
-      <App colors={colors} />
+      <App urlColors={urlColors} />
     </AppProvider>
   )
 }
