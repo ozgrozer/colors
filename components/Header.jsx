@@ -1,15 +1,25 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import niceColors from 'nice-color-palettes'
-import { PiXLogo, PiShare, PiShuffle, PiGithubLogo, PiExportBold } from 'react-icons/pi'
+import { PiXLogo, PiShare, PiShuffle, PiGithubLogo, PiExportBold, PiDownloadSimple } from 'react-icons/pi'
 
 import ShareModal from './ShareModal'
+import ImportModal from './ImportModal'
 import ExportModal from './ExportModal'
 import styles from '@styles/Header.module.scss'
 import { useAppContext } from '@contexts/AppContext'
 
 export default () => {
   const { setState } = useAppContext()
+
+  const shuffleColors = () => {
+    const colors = niceColors[Math.floor(Math.random() * niceColors.length)]
+    setState({ colors })
+  }
+
+  const [importModalIsOpen, setImportModalIsOpen] = useState(false)
+  const openImportModal = () => setImportModalIsOpen(true)
+  const closeImportModal = () => setImportModalIsOpen(false)
 
   const [exportModalIsOpen, setExportModalIsOpen] = useState(false)
   const openExportModal = () => setExportModalIsOpen(true)
@@ -18,11 +28,6 @@ export default () => {
   const [shareModalIsOpen, setShareModalIsOpen] = useState(false)
   const openShareModal = () => setShareModalIsOpen(true)
   const closeShareModal = () => setShareModalIsOpen(false)
-
-  const shuffleColors = () => {
-    const colors = niceColors[Math.floor(Math.random() * niceColors.length)]
-    setState({ colors })
-  }
 
   return (
     <div className={styles.header}>
@@ -40,6 +45,14 @@ export default () => {
         >
           <PiShuffle />
           <span>Shuffle</span>
+        </button>
+
+        <button
+          className={styles.button}
+          onClick={openImportModal}
+        >
+          <PiDownloadSimple />
+          <span>Import</span>
         </button>
 
         <button
@@ -78,6 +91,12 @@ export default () => {
           <PiGithubLogo />
         </a>
       </div>
+
+      <ImportModal
+        openModal={openImportModal}
+        closeModal={closeImportModal}
+        modalIsOpen={importModalIsOpen}
+      />
 
       <ExportModal
         openModal={openExportModal}
