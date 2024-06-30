@@ -1,7 +1,7 @@
 .header {
   height: 100%;
   display: flex;
-  padding: 0 10px;
+  padding: 0 20px;
   align-items: center;
   justify-content: space-between;
 
@@ -12,8 +12,15 @@
     align-items: center;
   }
 
+  .verticalLine {
+    width: 1px;
+    height: 100%;
+    margin: 0 15px;
+    background-color: #e5e5e5;
+  }
+
   .button {
-    gap: 5px;
+    gap: 8px;
     display: flex;
     font-size: 14px;
     font-weight: 600;

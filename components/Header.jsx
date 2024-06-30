@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useState } from 'react'
-import { PiExportBold } from 'react-icons/pi'
+import { PiXLogo, PiGithubLogo, PiExportBold } from 'react-icons/pi'
 
 import ExportModal from './ExportModal'
 import styles from '@styles/Header.module.scss'
@@ -28,14 +28,7 @@ export default () => {
           <span>Export</span>
         </button>
 
-        <a
-          target='_blank'
-          rel='noreferrer'
-          className={styles.button}
-          href='https://github.com/ozgrozer/colors'
-        >
-          GitHub
-        </a>
+        <div className={styles.verticalLine} />
 
         <a
           target='_blank'
@@ -43,7 +36,16 @@ export default () => {
           className={styles.button}
           href='https://x.com/ozgrozer'
         >
-          X
+          <PiXLogo />
+        </a>
+
+        <a
+          target='_blank'
+          rel='noreferrer'
+          className={styles.button}
+          href='https://github.com/ozgrozer/colors'
+        >
+          <PiGithubLogo />
         </a>
       </div>
 
