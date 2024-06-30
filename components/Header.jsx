@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import niceColors from 'nice-color-palettes'
-import { PiXLogo, PiShare, PiShuffle, PiGithubLogo, PiExportBold, PiDownloadSimple } from 'react-icons/pi'
+import { PiXLogo, PiShare, PiShuffle, PiFloppyDisk, PiGithubLogo, PiExportBold, PiDownloadSimple } from 'react-icons/pi'
 
+import SaveModal from './SaveModal'
 import ShareModal from './ShareModal'
 import ImportModal from './ImportModal'
 import ExportModal from './ExportModal'
@@ -16,6 +17,10 @@ export default () => {
     const colors = niceColors[Math.floor(Math.random() * niceColors.length)]
     setState({ colors })
   }
+
+  const [saveModalIsOpen, setSaveModalIsOpen] = useState(false)
+  const openSaveModal = () => setSaveModalIsOpen(true)
+  const closeSaveModal = () => setSaveModalIsOpen(false)
 
   const [importModalIsOpen, setImportModalIsOpen] = useState(false)
   const openImportModal = () => setImportModalIsOpen(true)
@@ -39,6 +44,15 @@ export default () => {
       </Link>
 
       <div className={styles.buttons}>
+
+        <button
+          onClick={openSaveModal}
+          className={styles.button}
+        >
+          <PiFloppyDisk />
+          <span>Save</span>
+        </button>
+
         <button
           onClick={shuffleColors}
           className={styles.button}
@@ -46,6 +60,8 @@ export default () => {
           <PiShuffle />
           <span>Shuffle</span>
         </button>
+
+        <div className={styles.verticalLine} />
 
         <button
           className={styles.button}
@@ -91,6 +107,12 @@ export default () => {
           <PiGithubLogo />
         </a>
       </div>
+
+      <SaveModal
+        openModal={openSaveModal}
+        closeModal={closeSaveModal}
+        modalIsOpen={saveModalIsOpen}
+      />
 
       <ImportModal
         openModal={openImportModal}
