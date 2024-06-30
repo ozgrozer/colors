@@ -3,20 +3,24 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 
 import clx from '@functions/clx'
+import { useAppContext } from '@contexts/AppContext'
 import styles from '@styles/ExportModalTabs.module.scss'
 
 const Css = () => {
+  const { state } = useAppContext()
+  const { colors } = state
+  console.log(colors)
+
   const code = 'body { color: blue; }'
 
   return (
-    <div>
-      <SyntaxHighlighter
-        style={oneDark}
-        language='css'
-      >
-        {code}
-      </SyntaxHighlighter>
-    </div>
+    <SyntaxHighlighter
+      language='css'
+      style={oneDark}
+      className={styles.syntaxHighlighter}
+    >
+      {code}
+    </SyntaxHighlighter>
   )
 }
 
@@ -24,14 +28,13 @@ const Scss = () => {
   const code = 'body { color: $blue; }'
 
   return (
-    <div>
-      <SyntaxHighlighter
-        style={oneDark}
-        language='scss'
-      >
-        {code}
-      </SyntaxHighlighter>
-    </div>
+    <SyntaxHighlighter
+      language='scss'
+      style={oneDark}
+      className={styles.syntaxHighlighter}
+    >
+      {code}
+    </SyntaxHighlighter>
   )
 }
 
@@ -39,14 +42,13 @@ const Js = () => {
   const code = 'console.log("test")'
 
   return (
-    <div>
-      <SyntaxHighlighter
-        style={oneDark}
-        language='js'
-      >
-        {code}
-      </SyntaxHighlighter>
-    </div>
+    <SyntaxHighlighter
+      language='js'
+      style={oneDark}
+      className={styles.syntaxHighlighter}
+    >
+      {code}
+    </SyntaxHighlighter>
   )
 }
 

@@ -25,4 +25,14 @@
       }
     }
   }
+
+  .content {
+    height: 250px;
+
+    .syntaxHighlighter {
+      height: 100%;
+      margin: 0 !important;
+      border-radius: 10px !important;
+    }
+  }
 }
