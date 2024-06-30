@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { ChromePicker } from 'react-color'
 
-import styles from '@styles/Colors.module.scss'
+import styles from '@styles/ColorItem.module.scss'
 import { useAppContext } from '@contexts/AppContext'
 
 export default ({ index, color, buttonRef, displayColorPicker, setDisplayColorPicker }) => {

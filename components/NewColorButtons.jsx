@@ -1,5 +1,5 @@
 import clx from '@functions/clx'
-import styles from '@styles/Colors.module.scss'
+import styles from '@styles/ColorItem.module.scss'
 import { useAppContext } from '@contexts/AppContext'
 import calculateNewColor from '@functions/calculateNewColor'
 
