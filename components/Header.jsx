@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useState } from 'react'
+import { PiExportBold } from 'react-icons/pi'
 
 import ExportModal from './ExportModal'
 import styles from '@styles/Header.module.scss'
@@ -23,7 +24,8 @@ export default () => {
           className={styles.button}
           onClick={openExportModal}
         >
-          Export
+          <PiExportBold />
+          <span>Export</span>
         </button>
 
         <a
