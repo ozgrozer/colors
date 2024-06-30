@@ -4,8 +4,8 @@
   flex-direction: row;
 
   .colorWrapper {
-    flex: 1;
     gap: 10px;
+    flex: 1 1 0;
     height: 100%;
     display: flex;
     padding-top: 80px;
