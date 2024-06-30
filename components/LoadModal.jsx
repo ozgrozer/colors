@@ -44,6 +44,10 @@ export default ({ modalIsOpen, closeModal }) => {
       maxAge: 315360000
     })
     setState({ palettes: newPalettes })
+
+    if (!newPalettes.length) {
+      closeModal()
+    }
   }
 
   return (
