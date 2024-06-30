@@ -30,18 +30,18 @@
   }
 
   .icons {
-    gap: 10px;
+    gap: 5px;
     display: flex;
     margin-top: 30px;
     align-items: center;
     flex-direction: column;
 
     .iconWrapper {
-      width: 50px;
-      height: 50px;
-      color: inherit;
+      width: 40px;
+      height: 40px;
       display: flex;
-      font-size: 30px;
+      color: inherit;
+      font-size: 24px;
       font-weight: 600;
       border-radius: 10px;
       align-items: center;
