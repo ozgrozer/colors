@@ -1,8 +1,14 @@
 import Link from 'next/link'
+import { useState } from 'react'
 
+import ExportModal from './ExportModal'
 import styles from '@styles/Header.module.scss'
 
 export default () => {
+  const [exportModalIsOpen, setExportModalIsOpen] = useState(false)
+  const openExportModal = () => setExportModalIsOpen(true)
+  const closeExportModal = () => setExportModalIsOpen(false)
+
   return (
     <div className={styles.header}>
       <Link
@@ -13,7 +19,10 @@ export default () => {
       </Link>
 
       <div className={styles.buttons}>
-        <button className={styles.button}>
+        <button
+          className={styles.button}
+          onClick={openExportModal}
+        >
           Export
         </button>
 
@@ -35,6 +44,12 @@ export default () => {
           X
         </a>
       </div>
+
+      <ExportModal
+        openModal={openExportModal}
+        closeModal={closeExportModal}
+        modalIsOpen={exportModalIsOpen}
+      />
     </div>
   )
 }
