@@ -6,6 +6,7 @@ import { MdClose } from 'react-icons/md'
 import { getCookie, setCookie } from 'cookies-next'
 
 import clx from '@functions/clx'
+import uuid from '@functions/uuid'
 import { FormikInput } from './Formik'
 import modalStyles from '@styles/Modal.module.scss'
 import { useAppContext } from '@contexts/AppContext'
@@ -33,6 +34,7 @@ export default ({ modalIsOpen, closeModal }) => {
         : []
       palettes.push({
         colors,
+        id: uuid(),
         name: values.paletteName
       })
       setCookie('palettes', palettes)
