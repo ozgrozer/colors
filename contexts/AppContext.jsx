@@ -6,6 +6,7 @@ export function AppProvider ({ children }) {
   const [state, setState] = useState({
     colors: [],
     palettes: [],
+    cookiesLoaded: false,
     selectedPaletteId: ''
   })
 
