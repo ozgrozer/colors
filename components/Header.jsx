@@ -20,6 +20,15 @@ export default () => {
         >
           GitHub
         </a>
+
+        <a
+          target='_blank'
+          rel='noreferrer'
+          className={styles.button}
+          href='https://x.com/ozgrozer'
+        >
+          X
+        </a>
       </div>
     </div>
   )
