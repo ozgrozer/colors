@@ -11,7 +11,10 @@ export default ({ index, color, displayColorPicker, setDisplayColorPicker }) => 
   useEffect(() => {
     const handleClickOutside = event => {
       if (pickerRef.current && !pickerRef.current.contains(event.target)) {
-        setDisplayColorPicker({})
+        setDisplayColorPicker(prevState => ({
+          ...prevState,
+          [index]: false
+        }))
       }
     }
 
