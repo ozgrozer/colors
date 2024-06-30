@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { useState } from 'react'
-import { PiXLogo, PiGithubLogo, PiExportBold } from 'react-icons/pi'
+import { PiXLogo, PiShare, PiGithubLogo, PiExportBold } from 'react-icons/pi'
 
+import ShareModal from './ShareModal'
 import ExportModal from './ExportModal'
 import styles from '@styles/Header.module.scss'
 
@@ -9,6 +10,10 @@ export default () => {
   const [exportModalIsOpen, setExportModalIsOpen] = useState(false)
   const openExportModal = () => setExportModalIsOpen(true)
   const closeExportModal = () => setExportModalIsOpen(false)
+
+  const [shareModalIsOpen, setShareModalIsOpen] = useState(false)
+  const openShareModal = () => setShareModalIsOpen(true)
+  const closeShareModal = () => setShareModalIsOpen(false)
 
   return (
     <div className={styles.header}>
@@ -26,6 +31,14 @@ export default () => {
         >
           <PiExportBold />
           <span>Export</span>
+        </button>
+
+        <button
+          onClick={openShareModal}
+          className={styles.button}
+        >
+          <PiShare />
+          <span>Share</span>
         </button>
 
         <div className={styles.verticalLine} />
@@ -53,6 +66,12 @@ export default () => {
         openModal={openExportModal}
         closeModal={closeExportModal}
         modalIsOpen={exportModalIsOpen}
+      />
+
+      <ShareModal
+        openModal={openShareModal}
+        closeModal={closeShareModal}
+        modalIsOpen={shareModalIsOpen}
       />
     </div>
   )
