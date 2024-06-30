@@ -1,0 +1,22 @@
+.copyButton {
+  top: 10px;
+  right: 10px;
+  padding: 5px;
+  display: flex;
+  font-weight: 600;
+  position: absolute;
+  border-radius: 5px;
+  align-items: center;
+  transition: all 150ms;
+  background-color: #fff;
+  justify-content: center;
+  &:hover {
+    background-color: darken(#fff, 10%);
+  }
+  &:active {
+    background-color: darken(#fff, 20%);
+  }
+  &.flashing {
+    background-color: #2ecc71;
+  }
+}
