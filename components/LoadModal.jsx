@@ -73,8 +73,20 @@ export default ({ modalIsOpen, closeModal }) => {
                   palettes.map((palette, key) => {
                     return (
                       <div key={key} className={styles.palette}>
-                        <div className={styles.name}>
-                          {palette.name}
+                        <div className={styles.nameAndColors}>
+                          <div>{palette.name}</div>
+
+                          <div className={styles.colors}>
+                            {palette.colors.map((color, key) => {
+                              return (
+                                <div
+                                  key={key}
+                                  className={styles.color}
+                                  style={{ backgroundColor: color }}
+                                />
+                              )
+                            })}
+                          </div>
                         </div>
 
                         <div className={styles.icons}>

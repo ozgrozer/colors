@@ -16,8 +16,25 @@
       background-color: darken(#fff, 5%);
     }
 
-    .name {
-      font-weight: 600;
+    .nameAndColors {
+      gap: 10px;
+      display: flex;
+      align-items: center;
+      width: calc(100% - 100px);
+      justify-content: space-between;
+
+      .name {
+        font-weight: 600;
+      }
+
+      .colors {
+        display: flex;
+
+        .color {
+          width: 24px;
+          height: 24px;
+        }
+      }
     }
 
     .icons {
