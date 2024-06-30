@@ -9,7 +9,7 @@ export default () => {
         <title>Colors</title>
       </Head>
 
-      <App />
+      <App colors={[]} />
     </>
   )
 }

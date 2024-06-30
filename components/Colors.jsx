@@ -8,14 +8,16 @@ import NewColorButtons from './NewColorButtons'
 import { useAppContext } from '@contexts/AppContext'
 import adjustTextColor from '@functions/adjustTextColor'
 
-export default () => {
+export default ({ colors: urlColors }) => {
   const { state, setState } = useAppContext()
   const { colors } = state
 
   useEffect(() => {
-    const colors = niceColors[Math.floor(Math.random() * niceColors.length)]
+    const colors = urlColors.length
+      ? urlColors.map(color => `#${color}`)
+      : niceColors[Math.floor(Math.random() * niceColors.length)]
     setState({ colors })
-  }, [])
+  }, [urlColors])
 
   const buttonRefs = useRef({})
   const [displayColorPicker, setDisplayColorPicker] = useState({})

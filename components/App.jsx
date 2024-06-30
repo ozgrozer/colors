@@ -3,7 +3,7 @@ import Colors from './Colors'
 import styles from '@styles/App.module.scss'
 import { AppProvider } from '@contexts/AppContext'
 
-export default () => {
+export default ({ colors }) => {
   return (
     <AppProvider>
       <div className={styles.app}>
@@ -12,7 +12,7 @@ export default () => {
         </div>
 
         <div className={styles.colorsWrapper}>
-          <Colors />
+          <Colors colors={colors} />
         </div>
       </div>
     </AppProvider>
