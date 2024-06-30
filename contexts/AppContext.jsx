@@ -4,7 +4,8 @@ const Context = createContext()
 
 export function AppProvider ({ children }) {
   const [state, setState] = useState({
-    colors: []
+    colors: [],
+    palettes: []
   })
 
   const _setState = updater => {
