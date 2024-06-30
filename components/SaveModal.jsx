@@ -120,7 +120,7 @@ export default ({ modalIsOpen, closeModal }) => {
               <div className={modalStyles.colorText}>
                 {
                   selectedPaletteId
-                    ? 'Use the same name to update the palette or use a different name to create a new palette'
+                    ? 'Use the same name to update the palette or a different name to create a new palette'
                     : 'Saved palettes are stored in cookies'
                 }
               </div>
