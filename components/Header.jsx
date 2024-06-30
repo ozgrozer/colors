@@ -1,11 +1,16 @@
+import Link from 'next/link'
+
 import styles from '@styles/Header.module.scss'
 
 export default () => {
   return (
     <div className={styles.header}>
-      <div className={styles.logo}>
+      <Link
+        href='/'
+        className={styles.button}
+      >
         🎨 Colors
-      </div>
+      </Link>
 
       <div className={styles.buttons}>
         <button className={styles.button}>
