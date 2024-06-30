@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
+import { PiArrowsHorizontal } from 'react-icons/pi'
 
 import clx from '@functions/clx'
 import ntc from '@functions/ntc'
@@ -17,7 +18,7 @@ export default ({ color, index, handleClick, displayColorPicker, setDisplayColor
 
   return (
     <Draggable key={index} index={index} draggableId={color}>
-      {(provided) => (
+      {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
@@ -42,7 +43,18 @@ export default ({ color, index, handleClick, displayColorPicker, setDisplayColor
 
           <div>{colorName}</div>
 
-          <div {...provided.dragHandleProps}>drag</div>
+          <div className={styles.icons}>
+            <div
+              {...provided.dragHandleProps}
+              className={clx(
+                styles.iconWrapper,
+                styles[backgroundColor],
+                snapshot.isDragging ? styles.dragging : ''
+              )}
+            >
+              <PiArrowsHorizontal />
+            </div>
+          </div>
 
           <NewColorButtons index={index} />
 

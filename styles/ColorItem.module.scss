@@ -29,6 +29,37 @@
     }
   }
 
+  .icons {
+    gap: 10px;
+    display: flex;
+    margin-top: 30px;
+    align-items: center;
+    flex-direction: column;
+
+    .iconWrapper {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      font-size: 30px;
+      font-weight: 600;
+      border-radius: 10px;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      transition: background-color 150ms;
+      &.black {
+        &:hover, &.dragging {
+          background-color: black;
+        }
+      }
+      &.white {
+        &:hover, &.dragging {
+          background-color: white;
+        }
+      }
+    }
+  }
+
   .colorPickerWrapper {
     top: 150px;
     z-index: 2;
