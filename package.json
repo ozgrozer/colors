@@ -18,7 +18,8 @@
     "nice-color-palettes": "^3.0.0",
     "react": "^18.3.1",
     "react-color": "^2.19.3",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-modal": "^3.16.1"
   },
   "devDependencies": {
     "sass": "^1.77.6",
