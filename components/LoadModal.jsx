@@ -1,10 +1,11 @@
 import Modal from 'react-modal'
 import { useState } from 'react'
-import { getCookie } from 'cookies-next'
 import { MdClose } from 'react-icons/md'
+import { getCookie, setCookie } from 'cookies-next'
 import { PiTrash, PiFolderOpen } from 'react-icons/pi'
 
 import clx from '@functions/clx'
+import findInObject from '@functions/findInObject'
 import styles from '@styles/LoadModal.module.scss'
 import modalStyles from '@styles/Modal.module.scss'
 import { useAppContext } from '@contexts/AppContext'
@@ -21,6 +22,15 @@ export default ({ modalIsOpen, closeModal }) => {
       : []
     setPalettes(palettes)
   }, [])
+
+  const deletePalette = ({ paletteId }) => {
+    const paletteIndex = findInObject({
+      object: palettes,
+      search: { id: paletteId }
+    })
+    palettes.splice(paletteIndex, 1)
+    setCookie('palettes', palettes)
+  }
 
   return (
     <Modal
@@ -68,6 +78,7 @@ export default ({ modalIsOpen, closeModal }) => {
                           <button
                             title='Delete'
                             className={styles.delete}
+                            onClick={() => deletePalette({ paletteId: palette.id })}
                           >
                             <PiTrash />
                           </button>
