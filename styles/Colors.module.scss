@@ -60,6 +60,7 @@
       &:hover {
         .newColorButton {
           opacity: 1;
+          transform: scale(1);
         }
       }
 
@@ -71,6 +72,7 @@
         font-size: 24px;
         border-radius: 50%;
         align-items: center;
+        transform: scale(0);
         transition: all 150ms;
         background-color: #fff;
         justify-content: center;
