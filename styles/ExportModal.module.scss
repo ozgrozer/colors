@@ -24,9 +24,21 @@
     background-color: #fff;
     transform: translate(-50%, -50%);
 
-    .modalHeader {
+    .header {
       height: 50px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       border-bottom: 1px solid #e5e5e5;
+
+      .title {
+        font-weight: 600;
+      }
+    }
+
+    .content {
+      padding: 20px;
     }
   }
 }
