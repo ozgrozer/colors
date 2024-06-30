@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import niceColors from 'nice-color-palettes'
 import { PiXLogo, PiShare, PiShuffle, PiFloppyDisk, PiFolderOpen, PiGithubLogo, PiExportBold, PiDownloadSimple } from 'react-icons/pi'
 
@@ -9,10 +9,24 @@ import ShareModal from './ShareModal'
 import ImportModal from './ImportModal'
 import ExportModal from './ExportModal'
 import styles from '@styles/Header.module.scss'
+import findInObject from '@functions/findInObject'
 import { useAppContext } from '@contexts/AppContext'
 
 export default () => {
-  const { setState } = useAppContext()
+  const { state, setState } = useAppContext()
+  const { palettes, selectedPaletteId } = state
+
+  const [selectedPalette, setSelectedPalette] = useState({})
+  useEffect(() => {
+    if (!selectedPaletteId) return
+
+    const paletteIndex = findInObject({
+      object: palettes,
+      search: { id: selectedPaletteId }
+    })
+    const palette = palettes[paletteIndex]
+    setSelectedPalette(palette)
+  }, [palettes, selectedPaletteId])
 
   const shuffleColors = () => {
     const colors = niceColors[Math.floor(Math.random() * niceColors.length)]
@@ -41,12 +55,24 @@ export default () => {
 
   return (
     <div className={styles.header}>
-      <Link
-        href='/'
-        className={styles.button}
-      >
-        🎨 Colors
-      </Link>
+      <div className={styles.logoAndPalette}>
+        <Link
+          href='/'
+          className={styles.button}
+        >
+          🎨 Colors
+        </Link>
+
+        {
+          selectedPalette && (
+            <div className={styles.palette}>
+              <div>/</div>
+
+              <div>{selectedPalette.name}</div>
+            </div>
+          )
+        }
+      </div>
 
       <div className={styles.buttons}>
         <button

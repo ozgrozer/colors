@@ -5,6 +5,18 @@
   align-items: center;
   justify-content: space-between;
 
+  .logoAndPalette {
+    display: flex;
+    align-items: center;
+
+    .palette {
+      gap: 5px;
+      display: flex;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
   .buttons {
     gap: 5px;
     height: 100%;
