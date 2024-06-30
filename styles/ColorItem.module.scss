@@ -13,6 +13,11 @@
       opacity: 1;
     }
   }
+  &.dragging {
+    .icons {
+      opacity: 1;
+    }
+  }
 
   .colorCode {
     color: inherit;

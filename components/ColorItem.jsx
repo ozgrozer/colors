@@ -11,15 +11,8 @@ import styles from '@styles/ColorItem.module.scss'
 import { useAppContext } from '@contexts/AppContext'
 import adjustTextColor from '@functions/adjustTextColor'
 
-export default ({ color, index, handleClick, displayColorPicker, setDisplayColorPicker }) => {
-  const { state, setState } = useAppContext()
-  const { colors } = state
-
-  const colorName = ntc.name(color)[1]
-  const textColor = adjustTextColor(color)
-  const backgroundColor = adjustTextColor(textColor)
-
-  const buttonRef = useRef(null)
+const Icons = ({ index, snapshot, provided, backgroundColor }) => {
+  const { setState } = useAppContext()
 
   const removeItem = ({ index }) => {
     setState(prevState => {
@@ -33,12 +26,48 @@ export default ({ color, index, handleClick, displayColorPicker, setDisplayColor
   }
 
   return (
+    <div className={styles.icons}>
+      <div
+        {...provided.dragHandleProps}
+        className={clx(
+          styles.iconWrapper,
+          styles[backgroundColor],
+          snapshot.isDragging ? styles.dragging : ''
+        )}
+      >
+        <PiArrowsHorizontal />
+      </div>
+
+      <button
+        onClick={() => removeItem({ index })}
+        className={clx(styles.iconWrapper, styles[backgroundColor])}
+      >
+        <MdClose />
+      </button>
+    </div>
+  )
+}
+
+export default ({ color, index, handleClick, displayColorPicker, setDisplayColorPicker }) => {
+  const { state } = useAppContext()
+  const { colors } = state
+
+  const colorName = ntc.name(color)[1]
+  const textColor = adjustTextColor(color)
+  const backgroundColor = adjustTextColor(textColor)
+
+  const buttonRef = useRef(null)
+
+  return (
     <Draggable key={index} index={index} draggableId={color}>
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
-          className={styles.colorWrapper}
+          className={clx(
+            styles.colorWrapper,
+            snapshot.isDragging ? styles.dragging : ''
+          )}
           style={{
             ...provided.draggableProps.style,
             color: textColor,
@@ -62,25 +91,12 @@ export default ({ color, index, handleClick, displayColorPicker, setDisplayColor
           {
             colors.length > 1
               ? (
-                <div className={styles.icons}>
-                  <div
-                    {...provided.dragHandleProps}
-                    className={clx(
-                      styles.iconWrapper,
-                      styles[backgroundColor],
-                      snapshot.isDragging ? styles.dragging : ''
-                    )}
-                  >
-                    <PiArrowsHorizontal />
-                  </div>
-
-                  <button
-                    onClick={() => removeItem({ index })}
-                    className={clx(styles.iconWrapper, styles[backgroundColor])}
-                  >
-                    <MdClose />
-                  </button>
-                </div>
+                <Icons
+                  index={index}
+                  snapshot={snapshot}
+                  provided={provided}
+                  backgroundColor={backgroundColor}
+                />
                 )
               : null
           }
