@@ -1,5 +1,6 @@
 import niceColors from 'nice-color-palettes'
 import { useRef, useState, useEffect } from 'react'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 import clx from '@functions/clx'
 import ntc from '@functions/ntc'
@@ -9,19 +10,27 @@ import NewColorButtons from './NewColorButtons'
 import { useAppContext } from '@contexts/AppContext'
 import adjustTextColor from '@functions/adjustTextColor'
 
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list)
+  const [removed] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, removed)
+  return result
+}
+
 export default ({ colors: urlColors }) => {
   const { state, setState } = useAppContext()
   const { colors } = state
 
   useEffect(() => {
-    const colors = urlColors.length
-      ? urlColors.map(color => `#${color}`)
+    const initialColors = urlColors.length
+      ? urlColors.map((color) => `#${color}`)
       : niceColors[Math.floor(Math.random() * niceColors.length)]
-    setState({ colors })
+    setState({ colors: initialColors })
   }, [urlColors])
 
   const buttonRefs = useRef({})
   const [displayColorPicker, setDisplayColorPicker] = useState({})
+
   const handleClick = ({ index }) => {
     setDisplayColorPicker(prevState => ({
       ...prevState,
@@ -29,47 +38,87 @@ export default ({ colors: urlColors }) => {
     }))
   }
 
+  const onDragEnd = result => {
+    if (!result.destination) {
+      return
+    }
+
+    const newColors = reorder(
+      colors,
+      result.source.index,
+      result.destination.index
+    )
+
+    setState({ colors: newColors })
+  }
+
   return (
-    <div className={styles.colors}>
-      {colors.map((color, key) => {
-        const colorName = ntc.name(color)[1]
-        const textColor = adjustTextColor(color)
-        const backgroundColor = adjustTextColor(textColor)
-
-        return (
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId='colors' direction='horizontal'>
+        {provided => (
           <div
-            key={key}
-            className={styles.colorWrapper}
-            style={{ color: textColor, backgroundColor: color }}
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className={styles.colors}
           >
-            <button
-              ref={el => (buttonRefs.current[key] = el)}
-              onClick={() => handleClick({ index: key })}
-              className={clx(
-                styles.colorCode,
-                styles[backgroundColor],
-                displayColorPicker[key] ? styles.open : ''
-              )}
-            >
-              {color.substr(1).toUpperCase()}
-            </button>
+            {colors.map((color, index) => {
+              const colorName = ntc.name(color)[1]
+              const textColor = adjustTextColor(color)
+              const backgroundColor = adjustTextColor(textColor)
 
-            <div>
-              {colorName}
-            </div>
+              return (
+                <Draggable
+                  key={index}
+                  index={index}
+                  draggableId={color}
+                >
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      className={styles.colorWrapper}
+                      style={{
+                        ...provided.draggableProps.style,
+                        color: textColor,
+                        backgroundColor: color
+                      }}
+                    >
+                      <button
+                        ref={(el) => (buttonRefs.current[index] = el)}
+                        onClick={() => handleClick({ index })}
+                        className={clx(
+                          styles.colorCode,
+                          styles[backgroundColor],
+                          displayColorPicker[index] ? styles.open : ''
+                        )}
+                      >
+                        {color.substr(1).toUpperCase()}
+                      </button>
 
-            <NewColorButtons index={key} />
+                      <div>{colorName}</div>
 
-            <ColorPicker
-              index={key}
-              color={color}
-              buttonRef={buttonRefs.current[key]}
-              displayColorPicker={displayColorPicker}
-              setDisplayColorPicker={setDisplayColorPicker}
-            />
+                      <div {...provided.dragHandleProps}>
+                        drag
+                      </div>
+
+                      <NewColorButtons index={index} />
+
+                      <ColorPicker
+                        index={index}
+                        color={color}
+                        buttonRef={buttonRefs.current[index]}
+                        displayColorPicker={displayColorPicker}
+                        setDisplayColorPicker={setDisplayColorPicker}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              )
+            })}
+            {provided.placeholder}
           </div>
-        )
-      })}
-    </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   )
 }
