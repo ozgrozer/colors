@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { PiCopySimple } from 'react-icons/pi'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
@@ -21,7 +22,7 @@ const CopyButton = ({ code }) => {
       onCopy={() => toggleIsFlashing()}
     >
       <button className={clx(styles.copyButton, isFlashing ? styles.flashing : '')}>
-        C
+        <PiCopySimple />
       </button>
     </CopyToClipboard>
   )
