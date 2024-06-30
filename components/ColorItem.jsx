@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react'
+import { useRef } from 'react'
 import { MdClose } from 'react-icons/md'
 import { Draggable } from 'react-beautiful-dnd'
 import { PiArrowsHorizontal } from 'react-icons/pi'
