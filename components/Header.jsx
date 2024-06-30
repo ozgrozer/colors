@@ -11,6 +11,15 @@ export default () => {
         <button className={styles.button}>
           Export
         </button>
+
+        <a
+          target='_blank'
+          rel='noreferrer'
+          className={styles.button}
+          href='https://github.com/ozgrozer/colors'
+        >
+          GitHub
+        </a>
       </div>
     </div>
   )
