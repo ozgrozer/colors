@@ -4,13 +4,18 @@ import { ChromePicker } from 'react-color'
 import styles from '@styles/Colors.module.scss'
 import { useAppContext } from '@contexts/AppContext'
 
-export default ({ index, color, displayColorPicker, setDisplayColorPicker }) => {
+export default ({ index, color, buttonRef, displayColorPicker, setDisplayColorPicker }) => {
   const { setState } = useAppContext()
 
   const pickerRef = useRef(null)
   useEffect(() => {
     const handleClickOutside = event => {
-      if (pickerRef.current && !pickerRef.current.contains(event.target)) {
+      if (
+        pickerRef.current &&
+        !pickerRef.current.contains(event.target) &&
+        buttonRef &&
+        !buttonRef.contains(event.target)
+      ) {
         setDisplayColorPicker(prevState => ({
           ...prevState,
           [index]: false
@@ -22,7 +27,7 @@ export default ({ index, color, displayColorPicker, setDisplayColorPicker }) => 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [])
+  }, [index, setDisplayColorPicker, buttonRef])
 
   const handleChange = ({ color, index }) => {
     setState(prevState => {

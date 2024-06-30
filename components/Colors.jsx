@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
 import niceColors from 'nice-color-palettes'
+import { useRef, useState, useEffect } from 'react'
 
 import ntc from '@functions/ntc'
 import ColorPicker from './ColorPicker'
@@ -17,6 +17,7 @@ export default () => {
     setState({ colors })
   }, [])
 
+  const buttonRefs = useRef({})
   const [displayColorPicker, setDisplayColorPicker] = useState({})
   const handleClick = ({ index }) => {
     setDisplayColorPicker(prevState => ({
@@ -39,6 +40,7 @@ export default () => {
           >
             <button
               className={styles.colorCode}
+              ref={el => (buttonRefs.current[key] = el)}
               onClick={() => handleClick({ index: key })}
             >
               {color.substr(1).toUpperCase()}
@@ -53,6 +55,7 @@ export default () => {
             <ColorPicker
               index={key}
               color={color}
+              buttonRef={buttonRefs.current[key]}
               displayColorPicker={displayColorPicker}
               setDisplayColorPicker={setDisplayColorPicker}
             />
