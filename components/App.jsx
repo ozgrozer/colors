@@ -10,11 +10,13 @@ const App = ({ colors }) => {
   const { setState } = useAppContext()
 
   useState(() => {
-    const _getCookies = getCookie('palettes')
-    const palettes = _getCookies
-      ? JSON.parse(_getCookies)
+    const getPalettesCookie = getCookie('palettes')
+    const palettes = getPalettesCookie
+      ? JSON.parse(getPalettesCookie)
       : []
-    setState({ palettes })
+    const getSelectedPaletteIdCookie = getCookie('selectedPaletteId')
+    const selectedPaletteId = getSelectedPaletteIdCookie || ''
+    setState({ palettes, selectedPaletteId })
   }, [])
 
   return (
