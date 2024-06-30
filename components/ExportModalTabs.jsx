@@ -1,32 +1,13 @@
 import { useState } from 'react'
-import { PiCopySimple } from 'react-icons/pi'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 
 import clx from '@functions/clx'
+import CopyButton from './CopyButton'
+import modalStyles from '@styles/Modal.module.scss'
 import { useAppContext } from '@contexts/AppContext'
 import styles from '@styles/ExportModalTabs.module.scss'
 import generateColorVariables from '@functions/generateColorVariables'
-
-const CopyButton = ({ code }) => {
-  const [isFlashing, setIsFlashing] = useState(false)
-  const toggleIsFlashing = () => {
-    setIsFlashing(true)
-    setTimeout(() => setIsFlashing(false), 300)
-  }
-
-  return (
-    <CopyToClipboard
-      text={code}
-      onCopy={() => toggleIsFlashing()}
-    >
-      <button className={clx(styles.copyButton, isFlashing ? styles.flashing : '')}>
-        <PiCopySimple />
-      </button>
-    </CopyToClipboard>
-  )
-}
 
 export default () => {
   const { state } = useAppContext()
@@ -67,14 +48,15 @@ export default () => {
           return (
             <div
               key={key}
-              className={styles.content}
+              className={modalStyles.content}
             >
-              <CopyButton code={code} />
+              <CopyButton text={code} />
 
               <SyntaxHighlighter
+                showLineNumbers
                 style={oneDark}
                 language={tab.id}
-                className={styles.syntaxHighlighter}
+                className={modalStyles.syntaxHighlighter}
               >
                 {code}
               </SyntaxHighlighter>
