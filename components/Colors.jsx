@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import niceColors from 'nice-color-palettes'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
+import clx from '@functions/clx'
 import ColorItem from './ColorItem'
 import styles from '@styles/Colors.module.scss'
 import { useAppContext } from '@contexts/AppContext'
@@ -50,11 +51,14 @@ export default ({ colors: urlColors }) => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId='colors' direction='horizontal'>
-        {(provided) => (
+        {(provided, snapshot) => (
           <div
             {...provided.droppableProps}
             ref={provided.innerRef}
-            className={styles.colors}
+            className={clx(
+              styles.colors,
+              snapshot.isDraggingOver ? 'isDragging' : ''
+            )}
           >
             {colors.map((color, index) => (
               <ColorItem

@@ -125,3 +125,11 @@
     }
   }
 }
+
+:global(.isDragging) {
+  .colorWrapper:not(.dragging) {
+    .icons {
+      opacity: 0 !important;
+    }
+  }
+}
