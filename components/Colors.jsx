@@ -14,18 +14,24 @@ const reorder = (list, startIndex, endIndex) => {
   return result
 }
 
-export default ({ colors: urlColors }) => {
+export default ({ urlColors }) => {
   const { state, setState } = useAppContext()
-  const { colors, cookiesLoaded } = state
+  const { colors, cookiesLoaded, initialColorsUpdated } = state
 
   useEffect(() => {
     if (!cookiesLoaded) return
-    if (colors.length) return
-    const initialColors = urlColors.length
-      ? urlColors.map((color) => `#${color}`)
-      : niceColors[Math.floor(Math.random() * niceColors.length)]
-    setState({ colors: initialColors })
-  }, [colors, urlColors, cookiesLoaded])
+    if (initialColorsUpdated) return
+
+    if (urlColors.length) {
+      const newColors = urlColors.map((color) => `#${color}`)
+      setState({ colors: newColors, initialColorsUpdated: true })
+    } else if (colors.length) {
+      setState({ initialColorsUpdated: true })
+    } else {
+      const newColors = niceColors[Math.floor(Math.random() * niceColors.length)]
+      setState({ colors: newColors, initialColorsUpdated: true })
+    }
+  }, [urlColors, cookiesLoaded, initialColorsUpdated])
 
   const [displayColorPicker, setDisplayColorPicker] = useState({})
 
