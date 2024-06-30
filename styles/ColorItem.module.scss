@@ -8,6 +8,11 @@
   position: relative;
   align-items: center;
   flex-direction: column;
+  &:hover {
+    .icons {
+      opacity: 1;
+    }
+  }
 
   .colorCode {
     color: inherit;
@@ -31,9 +36,11 @@
 
   .icons {
     gap: 5px;
+    opacity: 0;
     display: flex;
     margin-top: 30px;
     align-items: center;
+    transition: all 150ms;
     flex-direction: column;
 
     .iconWrapper {
