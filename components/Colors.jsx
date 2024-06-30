@@ -1,5 +1,5 @@
+import { useState, useEffect } from 'react'
 import niceColors from 'nice-color-palettes'
-import { useRef, useState, useEffect } from 'react'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 import ColorItem from './ColorItem'
@@ -24,7 +24,6 @@ export default ({ colors: urlColors }) => {
     setState({ colors: initialColors })
   }, [urlColors])
 
-  const buttonRefs = useRef({})
   const [displayColorPicker, setDisplayColorPicker] = useState({})
 
   const handleClick = ({ index }) => {
@@ -62,9 +61,9 @@ export default ({ colors: urlColors }) => {
                 key={index}
                 color={color}
                 index={index}
-                buttonRefs={buttonRefs}
                 handleClick={handleClick}
                 displayColorPicker={displayColorPicker}
+                setDisplayColorPicker={setDisplayColorPicker}
               />
             ))}
             {provided.placeholder}

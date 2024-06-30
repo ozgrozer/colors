@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 
 import clx from '@functions/clx'
@@ -7,10 +8,12 @@ import NewColorButtons from './NewColorButtons'
 import styles from '@styles/ColorItem.module.scss'
 import adjustTextColor from '@functions/adjustTextColor'
 
-export default ({ color, index, buttonRefs, handleClick, displayColorPicker }) => {
+export default ({ color, index, handleClick, displayColorPicker, setDisplayColorPicker }) => {
   const colorName = ntc.name(color)[1]
   const textColor = adjustTextColor(color)
   const backgroundColor = adjustTextColor(textColor)
+
+  const buttonRef = useRef(null)
 
   return (
     <Draggable key={index} index={index} draggableId={color}>
@@ -26,6 +29,7 @@ export default ({ color, index, buttonRefs, handleClick, displayColorPicker }) =
           }}
         >
           <button
+            ref={buttonRef}
             onClick={() => handleClick({ index })}
             className={clx(
               styles.colorCode,
@@ -45,8 +49,9 @@ export default ({ color, index, buttonRefs, handleClick, displayColorPicker }) =
           <ColorPicker
             index={index}
             color={color}
-            buttonRefs={buttonRefs}
+            buttonRef={buttonRef.current}
             displayColorPicker={displayColorPicker}
+            setDisplayColorPicker={setDisplayColorPicker}
           />
         </div>
       )}
