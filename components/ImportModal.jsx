@@ -72,7 +72,7 @@ export default ({ modalIsOpen, closeModal }) => {
               formik={formik}
               className={modalStyles.textarea}
               invalidClassName={modalStyles.invalid}
-              placeholder='Enter one HEX color per line'
+              placeholder='Enter one HEX code per line'
             />
 
             <button
