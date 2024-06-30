@@ -1,6 +1,7 @@
 import niceColors from 'nice-color-palettes'
 import { useRef, useState, useEffect } from 'react'
 
+import clx from '@functions/clx'
 import ntc from '@functions/ntc'
 import ColorPicker from './ColorPicker'
 import styles from '@styles/Colors.module.scss'
@@ -33,6 +34,7 @@ export default ({ colors: urlColors }) => {
       {colors.map((color, key) => {
         const colorName = ntc.name(color)[1]
         const textColor = adjustTextColor(color)
+        const backgroundColor = adjustTextColor(textColor)
 
         return (
           <div
@@ -41,9 +43,13 @@ export default ({ colors: urlColors }) => {
             style={{ color: textColor, backgroundColor: color }}
           >
             <button
-              className={styles.colorCode}
               ref={el => (buttonRefs.current[key] = el)}
               onClick={() => handleClick({ index: key })}
+              className={clx(
+                styles.colorCode,
+                styles[backgroundColor],
+                displayColorPicker[key] ? styles.open : ''
+              )}
             >
               {color.substr(1).toUpperCase()}
             </button>

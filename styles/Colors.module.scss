@@ -15,9 +15,22 @@
 
     .colorCode {
       color: inherit;
+      padding: 0 15px;
       font-size: 40px;
       font-weight: 600;
+      border-radius: 10px;
+      transition: all 150ms;
       background-color: transparent;
+      &.black {
+        &:hover, &.open {
+          background-color: black;
+        }
+      }
+      &.white {
+        &:hover, &.open {
+          background-color: white;
+        }
+      }
     }
 
     .colorPickerWrapper {
