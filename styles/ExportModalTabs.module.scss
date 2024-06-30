@@ -1,0 +1,28 @@
+.tabs {
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    gap: 5px;
+    display: flex;
+    align-items: center;
+
+    .button {
+      display: flex;
+      font-weight: 600;
+      padding: 5px 10px;
+      align-items: center;
+      border-radius: 10px;
+      transition: all 150ms;
+      background-color: #fff;
+      justify-content: center;
+      &:hover {
+        background-color: darken(#fff, 5%);
+      }
+      &:active, &.active {
+        background-color: darken(#fff, 10%);
+      }
+    }
+  }
+}

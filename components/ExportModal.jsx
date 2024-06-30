@@ -1,6 +1,7 @@
 import Modal from 'react-modal'
 
 import clx from '@functions/clx'
+import ExportModalTabs from './ExportModalTabs'
 import styles from '@styles/ExportModal.module.scss'
 
 export default ({ modalIsOpen, closeModal }) => {
@@ -12,7 +13,7 @@ export default ({ modalIsOpen, closeModal }) => {
       onRequestClose={closeModal}
       overlayClassName={styles.modalOverlay}
     >
-      <div className={styles.header}>
+      <div className={styles.modalHeader}>
         <div className={styles.title}>
           Export Palette
         </div>
@@ -26,8 +27,8 @@ export default ({ modalIsOpen, closeModal }) => {
         </button>
       </div>
 
-      <div className={styles.content}>
-        content
+      <div className={styles.modalContent}>
+        <ExportModalTabs />
       </div>
     </Modal>
   )

@@ -24,7 +24,7 @@
     background-color: #fff;
     transform: translate(-50%, -50%);
 
-    .header {
+    .modalHeader {
       height: 50px;
       padding: 0 20px;
       display: flex;
@@ -37,7 +37,7 @@
       }
     }
 
-    .content {
+    .modalContent {
       padding: 20px;
     }
   }
