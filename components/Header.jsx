@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import niceColors from 'nice-color-palettes'
-import { PiXLogo, PiShare, PiShuffle, PiFloppyDisk, PiGithubLogo, PiExportBold, PiDownloadSimple } from 'react-icons/pi'
+import { PiXLogo, PiShare, PiShuffle, PiFloppyDisk, PiFolderOpen, PiGithubLogo, PiExportBold, PiDownloadSimple } from 'react-icons/pi'
 
 import SaveModal from './SaveModal'
+import LoadModal from './LoadModal'
 import ShareModal from './ShareModal'
 import ImportModal from './ImportModal'
 import ExportModal from './ExportModal'
@@ -17,6 +18,10 @@ export default () => {
     const colors = niceColors[Math.floor(Math.random() * niceColors.length)]
     setState({ colors })
   }
+
+  const [loadModalIsOpen, setLoadModalIsOpen] = useState(false)
+  const openLoadModal = () => setLoadModalIsOpen(true)
+  const closeLoadModal = () => setLoadModalIsOpen(false)
 
   const [saveModalIsOpen, setSaveModalIsOpen] = useState(false)
   const openSaveModal = () => setSaveModalIsOpen(true)
@@ -44,6 +49,13 @@ export default () => {
       </Link>
 
       <div className={styles.buttons}>
+        <button
+          onClick={openLoadModal}
+          className={styles.button}
+        >
+          <PiFolderOpen />
+          <span>Load</span>
+        </button>
 
         <button
           onClick={openSaveModal}
@@ -107,6 +119,12 @@ export default () => {
           <PiGithubLogo />
         </a>
       </div>
+
+      <LoadModal
+        openModal={openLoadModal}
+        closeModal={closeLoadModal}
+        modalIsOpen={loadModalIsOpen}
+      />
 
       <SaveModal
         openModal={openSaveModal}

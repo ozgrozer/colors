@@ -1,0 +1,45 @@
+.palettes {
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+
+  .palette {
+    height: 50px;
+    display: flex;
+    cursor: default;
+    align-items: center;
+    padding: 0 0 0 20px;
+    border-radius: 10px;
+    transition: all 150ms;
+    justify-content: space-between;
+    &:hover {
+      background-color: darken(#fff, 5%);
+    }
+
+    .name {
+      font-weight: 600;
+    }
+
+    .icons {
+      display: flex;
+
+      button {
+        width: 50px;
+        height: 50px;
+        border-radius: 0;
+        transition: all 150ms;
+        background-color: transparent;
+        &:hover {
+          background-color: darken(#fff, 10%);
+        }
+        &:active {
+          background-color: darken(#fff, 15%);
+        }
+        &:last-child {
+          border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+      }
+    }
+  }
+}
