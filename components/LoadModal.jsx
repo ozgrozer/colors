@@ -13,23 +13,18 @@ import { useAppContext } from '@contexts/AppContext'
 Modal.setAppElement('#reactModal')
 
 export default ({ modalIsOpen, closeModal }) => {
-  const { setState } = useAppContext()
-
-  const [palettes, setPalettes] = useState([])
-  useState(() => {
-    const palettes = getCookie('palettes')
-      ? JSON.parse(getCookie('palettes'))
-      : []
-    setPalettes(palettes)
-  }, [])
+  const { state, setState } = useAppContext()
+  const { palettes } = state
 
   const deletePalette = ({ paletteId }) => {
+    const newPalettes = [...palettes]
     const paletteIndex = findInObject({
-      object: palettes,
+      object: newPalettes,
       search: { id: paletteId }
     })
-    palettes.splice(paletteIndex, 1)
-    setCookie('palettes', palettes)
+    newPalettes.splice(paletteIndex, 1)
+    setCookie('palettes', newPalettes)
+    setState({ palettes: newPalettes })
   }
 
   return (
