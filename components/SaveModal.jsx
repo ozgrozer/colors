@@ -8,6 +8,7 @@ import { setCookie } from 'cookies-next'
 import clx from '@functions/clx'
 import uuid from '@functions/uuid'
 import { FormikInput } from './Formik'
+import findInObject from '@functions/findInObject'
 import modalStyles from '@styles/Modal.module.scss'
 import { useAppContext } from '@contexts/AppContext'
 
@@ -15,12 +16,18 @@ Modal.setAppElement('#reactModal')
 
 export default ({ modalIsOpen, closeModal }) => {
   const { state, setState } = useAppContext()
-  const { colors, palettes } = state
+  const { colors, palettes, selectedPaletteId } = state
+
+  const paletteIndex = findInObject({
+    object: palettes,
+    search: { id: selectedPaletteId }
+  })
+  const palette = palettes[paletteIndex] || {}
 
   const [formIsSubmitting, setFormIsSubmitting] = useState(false)
   const formik = useFormik({
     initialValues: {
-      paletteName: ''
+      paletteName: palette.name
     },
     enableReinitialize: true,
     validationSchema: Yup.object({
@@ -29,20 +36,28 @@ export default ({ modalIsOpen, closeModal }) => {
     onSubmit: async values => {
       setFormIsSubmitting(true)
 
-      const newPaletteId = uuid()
-      const newPalettes = [...palettes]
-      newPalettes.push({
-        colors,
-        id: newPaletteId,
-        name: values.paletteName
-      })
+      if (values.paletteName === palette.name) {
+        const newPalettes = [...palettes]
+        newPalettes[paletteIndex].colors = colors
 
-      setCookie('palettes', newPalettes)
-      setCookie('selectedPaletteId', newPaletteId)
-      setState({
-        palettes: newPalettes,
-        selectedPaletteId: newPaletteId
-      })
+        setCookie('palettes', newPalettes)
+        setState({ palettes: newPalettes })
+      } else {
+        const newPaletteId = uuid()
+        const newPalettes = [...palettes]
+        newPalettes.push({
+          colors,
+          id: newPaletteId,
+          name: values.paletteName
+        })
+
+        setCookie('palettes', newPalettes)
+        setCookie('selectedPaletteId', newPaletteId)
+        setState({
+          palettes: newPalettes,
+          selectedPaletteId: newPaletteId
+        })
+      }
 
       closeModal()
       formik.resetForm()
@@ -97,7 +112,11 @@ export default ({ modalIsOpen, closeModal }) => {
 
             <div className={clx(modalStyles.alert, modalStyles.info)}>
               <div className={modalStyles.colorText}>
-                Saved palettes are stored in cookies
+                {
+                  selectedPaletteId
+                    ? 'Use the same name to update the palette or use a different name to create a new palette'
+                    : 'Saved palettes are stored in cookies'
+                }
               </div>
             </div>
           </fieldset>

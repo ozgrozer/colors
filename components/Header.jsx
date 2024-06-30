@@ -24,7 +24,7 @@ export default () => {
       object: palettes,
       search: { id: selectedPaletteId }
     })
-    const palette = palettes[paletteIndex]
+    const palette = palettes[paletteIndex] || {}
     setSelectedPalette(palette)
   }, [palettes, selectedPaletteId])
 
