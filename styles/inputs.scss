@@ -1,0 +1,30 @@
+.input {
+  width: 100%;
+  height: 40px;
+  outline: none;
+  display: block;
+  padding: 0 16px;
+  appearance: none;
+  line-height: 40px;
+  border-radius: 10px;
+  background-color: #fff;
+  border: 1px solid #E5E5E5;
+  &:focus {
+    border-color: #00A3FF;
+  }
+  &:disabled {
+    background-color: #FBFBFB;
+  }
+  &::-webkit-date-and-time-value {
+    text-align: left;
+  }
+  &.small {
+    height: 30px;
+    padding: 0 8px;
+    font-size: 14px;
+    line-height: 30px;
+  }
+  &.invalid {
+    border-color: #FF555E;
+  }
+}
