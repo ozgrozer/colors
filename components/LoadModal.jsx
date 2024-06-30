@@ -1,7 +1,6 @@
 import Modal from 'react-modal'
-import { useState } from 'react'
 import { MdClose } from 'react-icons/md'
-import { getCookie, setCookie } from 'cookies-next'
+import { setCookie } from 'cookies-next'
 import { PiTrash, PiFolderOpen } from 'react-icons/pi'
 
 import clx from '@functions/clx'
