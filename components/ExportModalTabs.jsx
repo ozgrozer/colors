@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 
@@ -6,6 +7,25 @@ import clx from '@functions/clx'
 import { useAppContext } from '@contexts/AppContext'
 import styles from '@styles/ExportModalTabs.module.scss'
 import generateColorVariables from '@functions/generateColorVariables'
+
+const CopyButton = ({ code }) => {
+  const [isFlashing, setIsFlashing] = useState(false)
+  const toggleIsFlashing = () => {
+    setIsFlashing(true)
+    setTimeout(() => setIsFlashing(false), 300)
+  }
+
+  return (
+    <CopyToClipboard
+      text={code}
+      onCopy={() => toggleIsFlashing()}
+    >
+      <button className={clx(styles.copyButton, isFlashing ? styles.flashing : '')}>
+        C
+      </button>
+    </CopyToClipboard>
+  )
+}
 
 export default () => {
   const { state } = useAppContext()
@@ -41,17 +61,21 @@ export default () => {
         tabs.map((tab, key) => {
           if (key !== activeButtonKey) return null
 
+          const code = colorVariables[tab.id]
+
           return (
             <div
               key={key}
               className={styles.content}
             >
+              <CopyButton code={code} />
+
               <SyntaxHighlighter
                 style={oneDark}
                 language={tab.id}
                 className={styles.syntaxHighlighter}
               >
-                {colorVariables[tab.id]}
+                {code}
               </SyntaxHighlighter>
             </div>
           )
