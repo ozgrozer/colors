@@ -22,7 +22,9 @@ export default ({ modalIsOpen, closeModal }) => {
     })
     const palette = palettes[paletteIndex]
 
-    setCookie('selectedPaletteId', palette.id)
+    setCookie('selectedPaletteId', palette.id, {
+      maxAge: 315360000
+    })
     setState({
       colors: palette.colors,
       selectedPaletteId: palette.id
@@ -38,7 +40,9 @@ export default ({ modalIsOpen, closeModal }) => {
       search: { id: paletteId }
     })
     newPalettes.splice(paletteIndex, 1)
-    setCookie('palettes', newPalettes)
+    setCookie('palettes', newPalettes, {
+      maxAge: 315360000
+    })
     setState({ palettes: newPalettes })
   }
 

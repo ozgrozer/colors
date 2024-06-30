@@ -40,7 +40,9 @@ export default ({ modalIsOpen, closeModal }) => {
         const newPalettes = [...palettes]
         newPalettes[paletteIndex].colors = colors
 
-        setCookie('palettes', newPalettes)
+        setCookie('palettes', newPalettes, {
+          maxAge: 315360000
+        })
         setState({ palettes: newPalettes })
       } else {
         const newPaletteId = uuid()
@@ -51,8 +53,12 @@ export default ({ modalIsOpen, closeModal }) => {
           name: values.paletteName
         })
 
-        setCookie('palettes', newPalettes)
-        setCookie('selectedPaletteId', newPaletteId)
+        setCookie('palettes', newPalettes, {
+          maxAge: 315360000
+        })
+        setCookie('selectedPaletteId', newPaletteId, {
+          maxAge: 315360000
+        })
         setState({
           palettes: newPalettes,
           selectedPaletteId: newPaletteId
