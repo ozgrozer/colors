@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import { useState } from 'react'
 import { useFormik } from 'formik'
 import { MdClose } from 'react-icons/md'
-import { getCookie, setCookie } from 'cookies-next'
+import { setCookie } from 'cookies-next'
 
 import clx from '@functions/clx'
 import uuid from '@functions/uuid'
@@ -29,14 +29,20 @@ export default ({ modalIsOpen, closeModal }) => {
     onSubmit: async values => {
       setFormIsSubmitting(true)
 
+      const newPaletteId = uuid()
       const newPalettes = [...palettes]
       newPalettes.push({
         colors,
-        id: uuid(),
+        id: newPaletteId,
         name: values.paletteName
       })
+
       setCookie('palettes', newPalettes)
-      setState({ palettes: newPalettes })
+      setCookie('selectedPaletteId', newPaletteId)
+      setState({
+        palettes: newPalettes,
+        selectedPaletteId: newPaletteId
+      })
 
       closeModal()
       formik.resetForm()
