@@ -16,6 +16,17 @@ export default ({ modalIsOpen, closeModal }) => {
   const { state, setState } = useAppContext()
   const { palettes } = state
 
+  const loadPalette = ({ paletteId }) => {
+    const paletteIndex = findInObject({
+      object: palettes,
+      search: { id: paletteId }
+    })
+    const palette = palettes[paletteIndex]
+    setState({ colors: palette.colors })
+
+    closeModal()
+  }
+
   const deletePalette = ({ paletteId }) => {
     const newPalettes = [...palettes]
     const paletteIndex = findInObject({
@@ -66,6 +77,7 @@ export default ({ modalIsOpen, closeModal }) => {
                           <button
                             title='Open'
                             className={styles.load}
+                            onClick={() => loadPalette({ paletteId: palette.id })}
                           >
                             <PiFolderOpen />
                           </button>
