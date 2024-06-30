@@ -2,12 +2,10 @@
   width: 100%;
   outline: none;
   display: block;
-  border-width: 1px;
   padding: 13px 16px;
-  border-style: solid;
   border-radius: 10px;
-  border-color: #E5E5E5;
   background-color: #fff;
+  border: 1px solid #E5E5E5;
   &:focus {
     border-color: #00A3FF;
   }
