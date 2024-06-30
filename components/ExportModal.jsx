@@ -2,7 +2,7 @@ import Modal from 'react-modal'
 import { MdClose } from 'react-icons/md'
 
 import ExportModalTabs from './ExportModalTabs'
-import styles from '@styles/ExportModal.module.scss'
+import modalStyles from '@styles/Modal.module.scss'
 
 Modal.setAppElement('#reactModal')
 
@@ -11,25 +11,25 @@ export default ({ modalIsOpen, closeModal }) => {
     <Modal
       shouldCloseOnEsc
       isOpen={modalIsOpen}
-      className={styles.modal}
+      className={modalStyles.modal}
       onRequestClose={closeModal}
-      overlayClassName={styles.modalOverlay}
+      overlayClassName={modalStyles.modalOverlay}
     >
-      <div className={styles.modalHeader}>
-        <div className={styles.title}>
+      <div className={modalStyles.modalHeader}>
+        <div className={modalStyles.title}>
           Export Palette
         </div>
 
         <button
           type='button'
           onClick={closeModal}
-          className={styles.closeButton}
+          className={modalStyles.closeButton}
         >
           <MdClose />
         </button>
       </div>
 
-      <div className={styles.modalContent}>
+      <div className={modalStyles.modalContent}>
         <ExportModalTabs />
       </div>
     </Modal>
