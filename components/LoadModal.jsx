@@ -21,7 +21,12 @@ export default ({ modalIsOpen, closeModal }) => {
       search: { id: paletteId }
     })
     const palette = palettes[paletteIndex]
-    setState({ colors: palette.colors })
+
+    setCookie('selectedPaletteId', palette.id)
+    setState({
+      colors: palette.colors,
+      selectedPaletteId: palette.id
+    })
 
     closeModal()
   }
