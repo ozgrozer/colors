@@ -4,6 +4,7 @@ import { getCookie } from 'cookies-next'
 import Header from './Header'
 import Colors from './Colors'
 import styles from '@styles/App.module.scss'
+import findInObject from '@functions/findInObject'
 import { useAppContext, AppProvider } from '@contexts/AppContext'
 
 const App = ({ colors }) => {
@@ -16,7 +17,20 @@ const App = ({ colors }) => {
       : []
     const getSelectedPaletteIdCookie = getCookie('selectedPaletteId')
     const selectedPaletteId = getSelectedPaletteIdCookie || ''
-    setState({ palettes, selectedPaletteId })
+
+    const paletteIndex = findInObject({
+      object: palettes,
+      search: { id: selectedPaletteId }
+    })
+    const palette = palettes[paletteIndex] || {}
+    const colors = palette.colors || []
+
+    setState({
+      colors,
+      palettes,
+      selectedPaletteId,
+      cookiesLoaded: true
+    })
   }, [])
 
   return (
