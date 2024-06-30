@@ -7,10 +7,13 @@ import { MdClose } from 'react-icons/md'
 import clx from '@functions/clx'
 import { FormikTextarea } from './Formik'
 import modalStyles from '@styles/Modal.module.scss'
+import { useAppContext } from '@contexts/AppContext'
 
 Modal.setAppElement('#reactModal')
 
 export default ({ modalIsOpen, closeModal }) => {
+  const { setState } = useAppContext()
+
   const [formIsSubmitting, setFormIsSubmitting] = useState(false)
   const formik = useFormik({
     initialValues: {
@@ -22,8 +25,15 @@ export default ({ modalIsOpen, closeModal }) => {
     }),
     onSubmit: async values => {
       setFormIsSubmitting(true)
-      console.log(values)
+
+      const newColors = values.colors
+        .split('\n')
+        .map(color => color.substr(0, 1) !== '#' ? `#${color}` : color)
+      setState({ colors: newColors })
+
       setFormIsSubmitting(false)
+
+      closeModal()
     }
   })
 
@@ -62,10 +72,13 @@ export default ({ modalIsOpen, closeModal }) => {
               formik={formik}
               className={modalStyles.textarea}
               invalidClassName={modalStyles.invalid}
-              placeholder='Enter one HEX code per line'
+              placeholder='Enter one HEX color per line'
             />
 
-            <button className={clx(modalStyles.button, modalStyles.blue)}>
+            <button
+              type='submit'
+              className={clx(modalStyles.button, modalStyles.blue)}
+            >
               Import
             </button>
           </fieldset>
