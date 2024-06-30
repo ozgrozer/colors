@@ -64,6 +64,9 @@
         &:hover {
           background-color: darken(#fff, 10%);
         }
+        &:active {
+          background-color: darken(#fff, 20%);
+        }
       }
     }
   }
