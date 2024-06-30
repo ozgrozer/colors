@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useCallback } from 'react'
 import { MdClose } from 'react-icons/md'
 import { Draggable } from 'react-beautiful-dnd'
 import { PiArrowsHorizontal } from 'react-icons/pi'
@@ -60,58 +60,66 @@ export default ({ color, index, handleClick, displayColorPicker, setDisplayColor
 
   return (
     <Draggable key={index} index={index} draggableId={color}>
-      {(provided, snapshot) => (
-        <div
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          className={clx(
-            styles.colorWrapper,
-            snapshot.isDragging ? styles.dragging : ''
-          )}
-          style={{
-            ...provided.draggableProps.style,
-            color: textColor,
-            backgroundColor: color
-          }}
-        >
-          <button
-            ref={buttonRef}
-            onClick={() => handleClick({ index })}
+      {(provided, snapshot) => {
+        const transform = provided.draggableProps.style.transform
+        if (transform) {
+          const t = transform.split(',')[0]
+          provided.draggableProps.style.transform = t + ', 0px)'
+        }
+
+        return (
+          <div
+            ref={provided.innerRef}
+            {...provided.draggableProps}
             className={clx(
-              styles.colorCode,
-              styles[backgroundColor],
-              displayColorPicker[index] ? styles.open : ''
+              styles.colorWrapper,
+              snapshot.isDragging ? styles.dragging : ''
             )}
+            style={{
+              ...provided.draggableProps.style,
+              color: textColor,
+              backgroundColor: color
+            }}
           >
-            {color.substr(1).toUpperCase()}
-          </button>
+            <button
+              ref={buttonRef}
+              onClick={() => handleClick({ index })}
+              className={clx(
+                styles.colorCode,
+                styles[backgroundColor],
+                displayColorPicker[index] ? styles.open : ''
+              )}
+            >
+              {color.substr(1).toUpperCase()}
+            </button>
 
-          <div>{colorName}</div>
+            <div>{colorName}</div>
 
-          {
-            colors.length > 1
-              ? (
-                <Icons
-                  index={index}
-                  snapshot={snapshot}
-                  provided={provided}
-                  backgroundColor={backgroundColor}
-                />
-                )
-              : null
-          }
+            {
+              colors.length > 1
+                ? (
+                  <Icons
+                    index={index}
+                    snapshot={snapshot}
+                    provided={provided}
+                    backgroundColor={backgroundColor}
+                  />
+                  )
+                : null
+            }
 
-          <NewColorButtons index={index} />
+            <NewColorButtons index={index} />
 
-          <ColorPicker
-            index={index}
-            color={color}
-            buttonRef={buttonRef.current}
-            displayColorPicker={displayColorPicker}
-            setDisplayColorPicker={setDisplayColorPicker}
-          />
-        </div>
-      )}
+            <ColorPicker
+              index={index}
+              color={color}
+              buttonRef={buttonRef.current}
+              displayColorPicker={displayColorPicker}
+              setDisplayColorPicker={setDisplayColorPicker}
+            />
+          </div>
+        )
+      }}
     </Draggable>
   )
 }
