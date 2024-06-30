@@ -1,10 +1,33 @@
 .header {
   height: 100%;
   display: flex;
-  padding: 0 20px;
   align-items: center;
+  justify-content: space-between;
 
   .logo {
     font-weight: 600;
+    margin-left: 20px;
+  }
+
+  .buttons {
+    height: 100%;
+    display: flex;
+
+    .button {
+      height: 100%;
+      display: flex;
+      padding: 0 20px;
+      font-weight: 600;
+      align-items: center;
+      transition: all 250ms;
+      background-color: #fff;
+      justify-content: center;
+      &:hover {
+        background-color: darken(#fff, 10%);
+      }
+      &:active {
+        background-color: darken(#fff, 20%);
+      }
+    }
   }
 }

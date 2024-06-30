@@ -6,6 +6,12 @@ export default () => {
       <div className={styles.logo}>
         🎨 Colors
       </div>
+
+      <div className={styles.buttons}>
+        <button className={styles.button}>
+          Export
+        </button>
+      </div>
     </div>
   )
 }
