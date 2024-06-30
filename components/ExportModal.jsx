@@ -1,5 +1,5 @@
 import Modal from 'react-modal'
-import { PiX } from 'react-icons/pi'
+import { MdClose } from 'react-icons/md'
 
 import ExportModalTabs from './ExportModalTabs'
 import styles from '@styles/ExportModal.module.scss'
@@ -25,7 +25,7 @@ export default ({ modalIsOpen, closeModal }) => {
           onClick={closeModal}
           className={styles.closeButton}
         >
-          <PiX />
+          <MdClose />
         </button>
       </div>
 

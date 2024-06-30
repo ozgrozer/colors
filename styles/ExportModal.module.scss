@@ -26,8 +26,8 @@
 
     .modalHeader {
       height: 50px;
-      padding: 0 20px;
       display: flex;
+      padding: 0 20px;
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid #e5e5e5;
@@ -40,16 +40,17 @@
         width: 30px;
         height: 30px;
         display: flex;
+        font-size: 20px;
         border-radius: 5px;
         align-items: center;
         transition: all 500ms;
         justify-content: center;
-        background-color: #e5e5e5;
+        background-color: #fff;
         &:hover {
-          background-color: darken(#e5e5e5, 5%);
+          background-color: darken(#fff, 5%);
         }
         &:active {
-          background-color: darken(#e5e5e5, 10%);
+          background-color: darken(#fff, 10%);
         }
       }
     }
