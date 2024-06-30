@@ -58,7 +58,7 @@ export default ({ colors: urlColors }) => {
           >
             {colors.map((color, index) => (
               <ColorItem
-                key={index}
+                key={color}
                 color={color}
                 index={index}
                 handleClick={handleClick}
