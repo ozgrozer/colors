@@ -7,7 +7,8 @@ export function AppProvider ({ children }) {
     colors: [],
     palettes: [],
     cookiesLoaded: false,
-    selectedPaletteId: ''
+    selectedPaletteId: '',
+    initialColorsUpdated: false
   })
 
   const _setState = updater => {
