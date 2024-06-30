@@ -1,0 +1,24 @@
+.alert {
+  gap: 16px;
+  height: 60px;
+  display: flex;
+  padding: 0 16px;
+  border-width: 1px;
+  border-style: solid;
+  align-items: center;
+  border-radius: 10px;
+  &.jcsb {
+    justify-content: space-between;
+  }
+  &.centerAligned {
+    justify-content: center;
+  }
+  &.info {
+    border-color: #ACB5BD;
+    background-color: #CED4DA;
+
+    .colorText {
+      color: #495057;
+    }
+  }
+}
