@@ -12,7 +12,8 @@ import { useAppContext } from '@contexts/AppContext'
 import adjustTextColor from '@functions/adjustTextColor'
 
 export default ({ color, index, handleClick, displayColorPicker, setDisplayColorPicker }) => {
-  const { setState } = useAppContext()
+  const { state, setState } = useAppContext()
+  const { colors } = state
 
   const colorName = ntc.name(color)[1]
   const textColor = adjustTextColor(color)
@@ -58,25 +59,31 @@ export default ({ color, index, handleClick, displayColorPicker, setDisplayColor
 
           <div>{colorName}</div>
 
-          <div className={styles.icons}>
-            <div
-              {...provided.dragHandleProps}
-              className={clx(
-                styles.iconWrapper,
-                styles[backgroundColor],
-                snapshot.isDragging ? styles.dragging : ''
-              )}
-            >
-              <PiArrowsHorizontal />
-            </div>
+          {
+            colors.length > 1
+              ? (
+                <div className={styles.icons}>
+                  <div
+                    {...provided.dragHandleProps}
+                    className={clx(
+                      styles.iconWrapper,
+                      styles[backgroundColor],
+                      snapshot.isDragging ? styles.dragging : ''
+                    )}
+                  >
+                    <PiArrowsHorizontal />
+                  </div>
 
-            <button
-              onClick={() => removeItem({ index })}
-              className={clx(styles.iconWrapper, styles[backgroundColor])}
-            >
-              <MdClose />
-            </button>
-          </div>
+                  <button
+                    onClick={() => removeItem({ index })}
+                    className={clx(styles.iconWrapper, styles[backgroundColor])}
+                  >
+                    <MdClose />
+                  </button>
+                </div>
+                )
+              : null
+          }
 
           <NewColorButtons index={index} />
 
