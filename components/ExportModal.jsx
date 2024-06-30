@@ -1,6 +1,6 @@
 import Modal from 'react-modal'
+import { PiX } from 'react-icons/pi'
 
-import clx from '@functions/clx'
 import ExportModalTabs from './ExportModalTabs'
 import styles from '@styles/ExportModal.module.scss'
 
@@ -23,9 +23,9 @@ export default ({ modalIsOpen, closeModal }) => {
         <button
           type='button'
           onClick={closeModal}
-          className={clx(styles.closeButton, styles.button, styles.lightGray)}
+          className={styles.closeButton}
         >
-          <i className='icon-Close' />
+          <PiX />
         </button>
       </div>
 

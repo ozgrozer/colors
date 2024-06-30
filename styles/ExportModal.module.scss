@@ -35,6 +35,23 @@
       .title {
         font-weight: 600;
       }
+
+      .closeButton {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        border-radius: 5px;
+        align-items: center;
+        transition: all 500ms;
+        justify-content: center;
+        background-color: #e5e5e5;
+        &:hover {
+          background-color: darken(#e5e5e5, 5%);
+        }
+        &:active {
+          background-color: darken(#e5e5e5, 10%);
+        }
+      }
     }
 
     .modalContent {
