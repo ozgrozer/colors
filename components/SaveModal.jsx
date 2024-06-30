@@ -14,8 +14,8 @@ import { useAppContext } from '@contexts/AppContext'
 Modal.setAppElement('#reactModal')
 
 export default ({ modalIsOpen, closeModal }) => {
-  const { state } = useAppContext()
-  const { colors } = state
+  const { state, setState } = useAppContext()
+  const { colors, palettes } = state
 
   const [formIsSubmitting, setFormIsSubmitting] = useState(false)
   const formik = useFormik({
@@ -29,15 +29,14 @@ export default ({ modalIsOpen, closeModal }) => {
     onSubmit: async values => {
       setFormIsSubmitting(true)
 
-      const palettes = getCookie('palettes')
-        ? JSON.parse(getCookie('palettes'))
-        : []
-      palettes.push({
+      const newPalettes = [...palettes]
+      newPalettes.push({
         colors,
         id: uuid(),
         name: values.paletteName
       })
-      setCookie('palettes', palettes)
+      setCookie('palettes', newPalettes)
+      setState({ palettes: newPalettes })
 
       closeModal()
       formik.resetForm()
