@@ -8,7 +8,7 @@ Color palette generator
 
 ## Preview
 
-<img src="./preview/Screenshot 2024-07-01 at 12.26.22 AM.png" alt="" width="600" />
+<img src="./preview/Screenshot 2024-07-01 at 5.43.11 PM.png" alt="" width="600" />
 
 ## License
 
