@@ -1,0 +1,415 @@
+.draggableWrapper {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+}
+
+.draggableContainer {
+  width: 400px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  background-color: white;
+}
+
+.modalHeader {
+  height: 50px;
+  display: flex;
+  padding: 0 20px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e5e5;
+  background-color: white;
+}
+
+.title {
+  font-weight: 600;
+}
+
+.titleWithBack {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.backButton {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  font-size: 18px;
+  border-radius: 5px;
+  align-items: center;
+  transition: all 500ms;
+  justify-content: center;
+  background-color: #fff;
+  &:hover {
+    background-color: darken(#fff, 5%);
+  }
+  &:active {
+    background-color: darken(#fff, 10%);
+  }
+}
+
+.closeButton {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  font-size: 20px;
+  border-radius: 5px;
+  align-items: center;
+  transition: all 500ms;
+  justify-content: center;
+  background-color: #fff;
+  &:hover {
+    background-color: darken(#fff, 5%);
+  }
+  &:active {
+    background-color: darken(#fff, 10%);
+  }
+}
+
+.modalContent {
+  padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.headerButtons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.settingsButton {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  font-size: 18px;
+  border-radius: 5px;
+  align-items: center;
+  transition: all 500ms;
+  justify-content: center;
+  background-color: #fff;
+  &:hover {
+    background-color: darken(#fff, 5%);
+  }
+  &:active {
+    background-color: darken(#fff, 10%);
+  }
+}
+
+.chatContainer {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: white;
+}
+
+.emptyChat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #888;
+  font-style: italic;
+}
+
+.chatMessage {
+  max-width: 80%;
+  padding: 10px 15px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+.userMessage {
+  align-self: flex-end;
+  background-color: #e1f5fe;
+  border-bottom-right-radius: 4px;
+}
+
+.assistantMessage {
+  align-self: flex-start;
+  background-color: #f5f5f5;
+  border-bottom-left-radius: 4px;
+}
+
+.messageContent {
+  margin-bottom: 8px;
+}
+
+.loadingIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  
+  span {
+    animation: loadingDots 1.4s infinite ease-in-out;
+    background-color: #888;
+    border-radius: 50%;
+    display: inline-block;
+    height: 6px;
+    width: 6px;
+    
+    &:nth-child(1) {
+      animation-delay: 0s;
+    }
+    
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    &:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+  }
+}
+
+@keyframes loadingDots {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.suggestedColorsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.suggestedColors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.colorBox {
+  position: relative;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 2px;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &.selected {
+    border-color: #2196f3;
+  }
+}
+
+.colorPreview {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.inPaletteIndicator {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.colorActionButtons {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.addButton, .removeButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.addButton {
+  background-color: #4caf50;
+  color: white;
+
+  &:hover {
+    background-color: #45a049;
+  }
+}
+
+.removeButton {
+  background-color: #f44336;
+  color: white;
+
+  &:hover {
+    background-color: #d32f2f;
+  }
+}
+
+.inputContainer {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #eee;
+  background-color: white;
+}
+
+.chatInput {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 18px;
+  padding: 10px 15px;
+  resize: none;
+  height: 40px;
+  max-height: 120px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: #2196f3;
+  }
+  
+  &:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+  }
+}
+
+.sendButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #0d8bf2;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+/* Settings styles */
+.settingsForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  overflow-y: auto;
+  height: 100%;
+  background-color: white;
+}
+
+.settingItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.settingLabel {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+}
+
+.settingDescription {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
+
+.settingInput {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  
+  &:focus {
+    outline: none;
+    border-color: #2196f3;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cancelButton, .saveButton {
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cancelButton {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #333;
+  
+  &:hover {
+    background-color: #e5e5e5;
+  }
+}
+
+.saveButton {
+  background-color: #2196f3;
+  border: 1px solid #2196f3;
+  color: white;
+  
+  &:hover {
+    background-color: #0d8bf2;
+  }
+} 

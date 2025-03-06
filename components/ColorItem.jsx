@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { MdClose } from 'react-icons/md'
 import { Draggable } from 'react-beautiful-dnd'
 import { PiArrowsHorizontal } from 'react-icons/pi'
@@ -51,15 +51,36 @@ const Icons = ({ index, snapshot, provided, backgroundColor }) => {
 export default ({ color, index, handleClick, displayColorPicker, setDisplayColorPicker }) => {
   const { state } = useAppContext()
   const { colors } = state
+  
+  // Add local state to track real-time color changes during picker dragging
+  const [displayColor, setDisplayColor] = useState(color)
+  
+  // Create a stable draggableId that won't change during color picker dragging
+  // Use the index as part of the id to ensure uniqueness across the list
+  const draggableId = `color-${index}-${color.replace('#', '')}`
+  
+  // Update displayColor when the prop color changes (from global state)
+  // This ensures we sync back with global state when it changes
+  useEffect(() => {
+    setDisplayColor(color)
+  }, [color])
+  
+  // Handle local color updates from ColorPicker during dragging
+  const handleLocalColorChange = (colorIndex, newColor) => {
+    if (colorIndex === index) {
+      setDisplayColor(newColor)
+    }
+  }
 
-  const colorName = ntc.name(color)[1]
-  const textColor = adjustTextColor(color)
+  // Use the displayColor for all visual aspects
+  const colorName = ntc.name(displayColor)[1]
+  const textColor = adjustTextColor(displayColor)
   const backgroundColor = adjustTextColor(textColor)
 
   const buttonRef = useRef(null)
 
   return (
-    <Draggable key={index} index={index} draggableId={color}>
+    <Draggable key={index} index={index} draggableId={draggableId}>
       {(provided, snapshot) => {
         const transform = provided.draggableProps.style.transform
         if (transform) {
@@ -78,7 +99,7 @@ export default ({ color, index, handleClick, displayColorPicker, setDisplayColor
             style={{
               ...provided.draggableProps.style,
               color: textColor,
-              backgroundColor: color
+              backgroundColor: displayColor
             }}
           >
             <button
@@ -90,7 +111,7 @@ export default ({ color, index, handleClick, displayColorPicker, setDisplayColor
                 displayColorPicker[index] ? styles.open : ''
               )}
             >
-              {color.substr(1).toUpperCase()}
+              {displayColor.substr(1).toUpperCase()}
             </button>
 
             <div>{colorName}</div>
@@ -116,6 +137,7 @@ export default ({ color, index, handleClick, displayColorPicker, setDisplayColor
               buttonRef={buttonRef.current}
               displayColorPicker={displayColorPicker}
               setDisplayColorPicker={setDisplayColorPicker}
+              onLocalColorChange={handleLocalColorChange}
             />
           </div>
         )

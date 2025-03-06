@@ -1,4 +1,4 @@
-import { useState, useContext, createContext } from 'react'
+import { useState, useContext, createContext, useEffect } from 'react'
 
 const Context = createContext()
 
@@ -8,8 +8,44 @@ export function AppProvider ({ children }) {
     palettes: [],
     cookiesLoaded: false,
     selectedPaletteId: '',
-    initialColorsUpdated: false
+    initialColorsUpdated: false,
+    // Chat-related state
+    chatHistory: [],
+    suggestedColors: [],
+    useLLM: false,
+    llmConfig: {
+      endpoint: '',
+      apiKey: ''
+    }
   })
+
+  // Load LLM settings from localStorage on initialization
+  useEffect(() => {
+    // Check if we're in a browser environment (not server-side rendering)
+    if (typeof window !== 'undefined') {
+      try {
+        // Load useLLM setting
+        const storedUseLLM = localStorage.getItem('useLLM')
+        const useLLM = storedUseLLM ? JSON.parse(storedUseLLM) : false
+        
+        // Load llmConfig settings
+        const storedLLMConfig = localStorage.getItem('llmConfig')
+        const llmConfig = storedLLMConfig ? JSON.parse(storedLLMConfig) : {
+          endpoint: '',
+          apiKey: ''
+        }
+        
+        // Update state with stored settings
+        setState(prevState => ({
+          ...prevState,
+          useLLM,
+          llmConfig
+        }))
+      } catch (error) {
+        console.error('Error loading LLM settings from localStorage:', error)
+      }
+    }
+  }, [])
 
   const _setState = updater => {
     if (typeof updater === 'function') {

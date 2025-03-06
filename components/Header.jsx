@@ -1,13 +1,14 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import niceColors from 'nice-color-palettes'
-import { PiXLogo, PiShare, PiShuffle, PiFloppyDisk, PiFolderOpen, PiGithubLogo, PiExportBold, PiDownloadSimple } from 'react-icons/pi'
+import { PiXLogo, PiShare, PiShuffle, PiFloppyDisk, PiFolderOpen, PiGithubLogo, PiExportBold, PiDownloadSimple, PiChatCircleText } from 'react-icons/pi'
 
 import SaveModal from './SaveModal'
 import LoadModal from './LoadModal'
 import ShareModal from './ShareModal'
 import ImportModal from './ImportModal'
 import ExportModal from './ExportModal'
+import ChatModal from './ChatModal'
 import styles from '@styles/Header.module.scss'
 import findInObject from '@functions/findInObject'
 import { useAppContext } from '@contexts/AppContext'
@@ -52,6 +53,10 @@ export default () => {
   const [shareModalIsOpen, setShareModalIsOpen] = useState(false)
   const openShareModal = () => setShareModalIsOpen(true)
   const closeShareModal = () => setShareModalIsOpen(false)
+
+  const [chatModalIsOpen, setChatModalIsOpen] = useState(false)
+  const openChatModal = () => setChatModalIsOpen(true)
+  const closeChatModal = () => setChatModalIsOpen(false)
 
   return (
     <div className={styles.header}>
@@ -129,6 +134,16 @@ export default () => {
 
         <div className={styles.verticalLine} />
 
+        <button
+          onClick={openChatModal}
+          className={styles.button}
+        >
+          <PiChatCircleText />
+          <span>Assistant</span>
+        </button>
+
+        <div className={styles.verticalLine} />
+
         <a
           target='_blank'
           rel='noreferrer'
@@ -176,6 +191,12 @@ export default () => {
         openModal={openShareModal}
         closeModal={closeShareModal}
         modalIsOpen={shareModalIsOpen}
+      />
+
+      <ChatModal
+        openModal={openChatModal}
+        closeModal={closeChatModal}
+        modalIsOpen={chatModalIsOpen}
       />
     </div>
   )
